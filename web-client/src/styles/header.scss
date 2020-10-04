@@ -1,0 +1,57 @@
+$primaryColor: #3C3C9A;
+$backgroundColor: #FAFAFA;
+$primaryTextColor: #2C2C2C;
+$secondaryTextColor: #FFF;
+
+$containerWidth: 100%;
+
+.containerHeader{
+    width: $containerWidth;
+    margin-top: 0;
+    height: 10vh;
+    background-color: $backgroundColor;
+
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    text-align: center;   
+}
+
+.title{
+    display: flex;
+    font-size: 2vh;
+}
+
+.Hey{
+    color: $primaryColor;
+}
+
+.work{
+    color: $primaryTextColor;
+}
+
+.text{
+    color: $primaryTextColor;
+    margin: 1vw;
+}
+
+.search{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #555555;
+    width: $containerWidth/2;
+    height: 3vh;
+    font-size: 2vh;
+    background-color: $backgroundColor;
+    
+    
+}
+
+.search:focus{
+    border-bottom: 2px solid rgb(37, 37, 37);
+    transition: all 0.4s;
+}
+
+.inputContainer{
+    width: $containerWidth/1.5;
+}

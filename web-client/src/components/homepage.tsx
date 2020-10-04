@@ -1,4 +1,6 @@
 import React from 'react'
+import Header from './header'
+
 import '../styles/homepage.scss'
 
 export default class Homepage extends React.Component{
@@ -7,6 +9,7 @@ export default class Homepage extends React.Component{
         return(<>
             <div className = "containerHome">
                 <div className="header">
+                    <Header/>
                 </div>
                 <div className="homePage">
                     <div className="textPlate">
