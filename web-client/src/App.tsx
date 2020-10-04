@@ -8,6 +8,8 @@ import {
 
 import './App.css';
 import Homepage from './components/homepage';
+import Login from './components/login';
+import Register from './components/register';
 
 function App() {
   return (
@@ -17,6 +19,12 @@ function App() {
           <Switch>
             <Route exact path="/" component={ Homepage }>
 
+            </Route>
+
+            <Route path="/login" component={ Login }>
+            </Route>
+
+            <Route path="/register" component={ Register }>
             </Route>
           </Switch>
         </Router>

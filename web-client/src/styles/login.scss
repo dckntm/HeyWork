@@ -5,35 +5,37 @@ $secondaryTextColor: #FFF;
 
 $containerWidth: 100%;
 
-.homePage{
+.container{
     display: flex;
-    flex-direction: row;
+    align-items: center;
     justify-content: center;
-    
+}
 
-    height: 90vh;
-    width: $containerWidth;
+.loginContainer{
+    background-color: $primaryColor;
+    margin-top: 25vh;
+    border-radius: 1vh;
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+
 }
 
 .imgContainer{
-    width: 50vw;
-}
-
-.img{
-    width: $containerWidth/1.2;
-}
-
-.textPlate{
     width: $containerWidth/2;
     background-color: $backgroundColor;
-    height: 65vh;
+    height: $containerWidth;
+}
+
+.formContainer{
+    width: $containerWidth/2;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 10vw;
+    align-items: center;
 }
 
-.bold{
-    font-size: 7vh;
-    margin-bottom: 0;
+form{
+    display: flex;
+    flex-direction: column;
 }
