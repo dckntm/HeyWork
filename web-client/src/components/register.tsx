@@ -8,7 +8,7 @@ export default class Register extends React.Component{
         <div className="container">
             <div className="registerContainer">
                 <div className="imgContainer">
-                    <img src="https://images.unsplash.com/photo-1596859078550-bd3cb376aaa3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80" className="img"/>
+                    <img src="https://images.unsplash.com/photo-1596859078550-bd3cb376aaa3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80" alt="" className="img"/>
                 </div>
                 <div className="formContainer">
                     <p>SignUp</p>

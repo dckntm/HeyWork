@@ -3,6 +3,19 @@ import React from 'react';
 import '../styles/login.scss'
 
 export default class Login extends React.Component{
+    state = {
+        username: "",
+        password: ""
+    }
+
+    onUsernameChange=(event: { target: { value: any; }; })=>{
+        this.setState({username: event.target.value})
+    }
+
+    onPasswordChange=(event: { target: { value: any; }; })=>{
+        this.setState({password: event.target.value})
+    }
+
     render(){
         return(<>
         <div className="container">
@@ -12,10 +25,10 @@ export default class Login extends React.Component{
                 </div>
                 <div className="formContainer">
                     <p>SignIn</p>
-                    <form action="">
-                        <input type="text" placeholder="login" />
-                        <input type="text" placeholder="password" />
-                        <button >Enter</button>
+                    <form action="" onSubmit = {this.handleSubmit}>
+                        <input type="text" placeholder="login" value={this.state.username} onInput={this.onUsernameChange}/>
+                        <input type="text" placeholder="password" value={this.state.password} />
+                        <input type="submit button" value="SignIn" />
                     </form>
                 </div>
             </div>
