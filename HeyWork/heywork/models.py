@@ -13,15 +13,19 @@ class User(models.Model):
     phone_number = PhoneNumberField(null=False, blank=False, unique=True)
     role_id = models.ForeignKey('Role',on_delete=models.CASCADE)    
 
-
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField()
     description = models.TextField()
     rating = models.FloatField()
 
+class Users_Order(models.Model):
+    customer_id = models.ForeignKey(User,on_delete = models.CASCADE)
+    executor_id = models.ForeignKey(User,on_delete = models.CASCADE)
+    order_id = models.ForeignKey(Order,on_delete = models.CASCADE)
+
 class Status(models.Model):
-    id = models.OneToOneField(Order,on_delete=models.CASCADE,primary_key=True)
+    id = models.OneToOneField(Order,on_delete = models.CASCADE,primary_key=True)
     name = models.CharField()
 
 
