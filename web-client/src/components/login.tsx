@@ -1,10 +1,10 @@
 import React from 'react';
 
 import '../styles/login.scss'
-import { AuthService } from '../API/authAPI'
+import { login } from '../API/authAPI'
 
 export default class Login extends React.Component<{}, { login: string, password: string }>{
-    constructor(props: any, private pageService: AuthService) {
+    constructor(props: any) {
         super(props);
         this.state = {
             login: '',
@@ -13,7 +13,7 @@ export default class Login extends React.Component<{}, { login: string, password
 
         this.onChangeLogin = this.onChangeLogin.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        this.onSubmit = this.onSubmit.bind(this)
+        this.login = this.login.bind(this)
     }
 
     onChangeLogin(event: any){
@@ -24,11 +24,9 @@ export default class Login extends React.Component<{}, { login: string, password
         this.setState({password: event.target.value})
     }
 
-    onSubmit(event: any){
-        alert("Welcome");
+    login = (event: any) =>{
         event.preventDefault();
-        console.log(this.state.login, this.state.password);
-        this.pageService.login(this.state.login, this.state.password);
+        return login(this.state.login, this.state.password)
     }
 
     render(){
@@ -36,7 +34,7 @@ export default class Login extends React.Component<{}, { login: string, password
         <div className="container">
             <div className="loginContainer">
                 <div className="formContainer">
-                    <form onSubmit={this.onSubmit}>
+                    <form onSubmit={this.login}>
                         <div className="formGroup">
                             <p className="inputDescription">Логин</p>
                             <input className="input" type="text" name="login" value={this.state.login}onChange={this.onChangeLogin}/>

@@ -1,9 +1,9 @@
-export class AuthService{
-    login(login: string, password: string){
+
+    export function login(email: string, password: string){
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({login, password})
+            body: JSON.stringify({email, password})
         }
         return fetch('api/identity/login', requestOptions)
         .then(user => {
@@ -14,13 +14,13 @@ export class AuthService{
     
     }
     
-    register(username: string, password: string) {
+    export async function register(email: string, password: string, name: string, secondName: string) {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({email, password, name, secondName})
         }
-        return fetch('api/identity/register', requestOptions)
+        return await fetch('api/identity/register', requestOptions)
         .then(user => {
             localStorage.setItem('currentUser', JSON.stringify(user));
     
@@ -29,9 +29,9 @@ export class AuthService{
         
     }
     
-    logout(){
+    export function logout(){
         localStorage.removeItem('currentUser')
     }
-}
+
 
 
