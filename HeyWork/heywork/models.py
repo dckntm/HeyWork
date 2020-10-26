@@ -33,6 +33,10 @@ class Technology():
     id = models.ManyToManyField(User,primary_key=True)
     name = models.CharField()
 
+class Stack_to_User(models.Model):
+    user_id = models.ForeignKey(User,on_delete = models.CASCADE)
+    technology_id = models.ForeignKey(Technology,on_delete = models.CASCADE)
+
 
 class Stack_to_Order(models.Model):
     order_id = models.ForeignKey(Order,on_delete = models.CASCADE)
