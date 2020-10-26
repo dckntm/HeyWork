@@ -3,39 +3,155 @@ $backgroundColor: #FAFAFA;
 $primaryTextColor: #2C2C2C;
 $secondaryTextColor: #FFF;
 
+$testBackColor: rgb(233, 233, 233);
+
 $containerWidth: 100%;
 
 .container{
+    margin: 0;
+    width: $containerWidth;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    // background: url(../../../../imges/auth.jpg);
+    // -moz-background-size: 100%; /* Firefox 3.6+ */
+    // -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    // -o-background-size: 100%; /* Opera 9.6+ */
+    // background-size: 100%; /* Современные браузеры */
 }
 
 .loginContainer{
-    background-color: $primaryColor;
-    margin-top: 25vh;
-    border-radius: 1vh;
-    width: 50vw;
-    height: 50vh;
-    display: flex;
-
-}
-
-.imgContainer{
-    width: $containerWidth/2;
-    background-color: $backgroundColor;
     height: $containerWidth;
+    background-color: $testBackColor;
+    border-radius: 1vh;
+    width: 28vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
 }
 
 .formContainer{
-    width: $containerWidth/2;
+    width: 150%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
 form{
     display: flex;
     flex-direction: column;
+    width: $containerWidth;
+}
+
+.wrapInput{
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.input{
+    outline: none;
+    margin-top: -1vh;
+    border: 1px solid #555555;
+    border-radius: 1vh;
+    width: $containerWidth;
+    height: 4vh;
+    font-size: 2vh;
+    background-color: $backgroundColor;
+}
+
+.inputVisible{
+    position: absolute;
+    right: 10px;
+    z-index: 9;
+    width: 1vw;
+    background-color: black;
+}
+
+.subButton{
+    background-color: #7DBCBB;
+    color: white;
+    margin-top: 2vh;
+    outline: none;
+    border: none;
+    width: $containerWidth;
+    height: 4vh;
+    border-radius: 1vh;
+    font-size: 1.5vh;
+}
+
+.signIn{
+    margin-top: 15vh;
+    font-size: 2.5em;
+}
+
+.formGroup{
+    margin-bottom: 1.5vh;
+}
+
+.inputDescription{
+    margin-left: 1vw;
+}
+
+@media screen and (max-width: 1385px) {
+    .loginContainer{
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width: 1070px) {
+    .loginContainer{
+        width: 50vw;
+    }
+}
+
+
+@media screen and(max-width: 420px) {
+    .container{
+        position: relative;
+    }
+
+    .loginContainer{
+        position: absolute;
+        justify-content: center;
+        width: 100vw;
+        height: 75vh;
+        bottom: 0;
+        border-radius: 0 9vh 0 0;
+    }
+
+    .formContainer{
+        justify-content: center;
+        position: absolute;
+        width: $containerWidth/1.5;
+        width: 100vw;
+    }
+
+    .input{
+        width: 100%;
+        height: 6vh;
+        font-size: 4vh;
+    }
+
+    .signIn{
+        margin-top:6vh;
+        margin-bottom: 2vh;
+        font-size: 5vh;
+    }
+
+    .inputDescription{
+        margin-left: 2vh;
+    }
+
+    .subButton{
+        width: 100%;
+        height: 6vh;
+        margin-top: 13vh;
+        font-size: 2vh;
+    }
+
+    form{
+        justify-content: space-evenly;
+    }
 }
