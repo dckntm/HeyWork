@@ -11,4 +11,29 @@ class User(models.Model):
     rating = models.FloatField()
     company = models.CharField()
     phone_number = PhoneNumberField(null=False, blank=False, unique=True)
-    role_id = models.ForeignKey('Role',on_delete=models.CASCADE)
+    role_id = models.ForeignKey('Role',on_delete=models.CASCADE)    
+
+
+class Order(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField()
+    description = models.TextField()
+    rating = models.FloatField()
+
+class Status(models.Model):
+    id = models.OneToOneField(Order,on_delete=models.CASCADE,primary_key=True)
+    name = models.CharField()
+
+
+class Role(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=15)
+
+class Technology():
+    id = models.ManyToManyField(User,primary_key=True)
+    name = models.CharField()
+
+
+class Stack_to_Order(models.Model):
+    order_id = models.ForeignKey(Order,on_delete = models.CASCADE)
+    technology_id = models.ForeignKey(Technology,on_delete = models.CASCADE)

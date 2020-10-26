@@ -1,3 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+import models
 
-# Create your views here.
+# CRUD requests for User
