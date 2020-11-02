@@ -10,7 +10,10 @@ class User(models.Model):
     rating = models.FloatField(null=True)
     company = models.TextField()
     phone_number = models.CharField(max_length=15)
-    role_id = models.ForeignKey('Role',on_delete=models.CASCADE)    
+    role_id = models.ForeignKey('Role',on_delete=models.CASCADE)   
+
+    def __str___(self):
+        return self.first_name 
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
