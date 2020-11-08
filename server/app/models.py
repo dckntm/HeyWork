@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class User(models.Model):
     id = models.AutoField(primary_key=True)
@@ -9,8 +10,9 @@ class User(models.Model):
     description = models.TextField(null=True)
     rating = models.FloatField(null=True)
     company = models.TextField()
-    phone_number = models.CharField(max_length=15)
-    role_id = models.ForeignKey('Role',on_delete=models.CASCADE)   
+    phone_number = models.CharField(max_length=15) 
+    is_admin = models.BooleanField(default=False)  
+    created_date = models.DateField(default=datetime.date.today)
 
     def __str___(self):
         return self.first_name 
@@ -31,10 +33,6 @@ class Status(models.Model):
     id = models.OneToOneField(Order,on_delete = models.CASCADE,primary_key=True)
     name = models.TextField()
 
-
-class Role(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=15)
 
 class Technology(models.Model):
     id = models.AutoField(primary_key=True)
