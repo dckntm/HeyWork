@@ -19,10 +19,10 @@ class PutGetDeleteOneUser(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-
-def CreateUserAPIView(user,request):
-    user = request.data
-    serializer = UserSerializer(data=user)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response(serializer.data,status=status.HTTP_201_CREATED)
+class CreateUserAPIView(APIView):
+    def post(user,request):
+        user = request.data
+        serializer = UserSerializer(data=user)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
