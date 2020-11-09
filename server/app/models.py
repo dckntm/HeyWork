@@ -1,12 +1,11 @@
 from django.db import models
 import datetime
+from django.contrib.auth.models import User
 
-class User(models.Model):
-    id = models.AutoField(primary_key=True)
+class Profile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile")
     name = models.CharField(max_length=15)
     second_name = models.CharField(max_length=15)
-    email = models.EmailField(max_length=30,unique=True)
-    password = models.CharField(max_length=20)
     description = models.TextField(null=True)
     rating = models.FloatField(null=True)
     company = models.TextField()
@@ -14,8 +13,8 @@ class User(models.Model):
     is_admin = models.BooleanField(default=False)  
     created_date = models.DateField(default=datetime.date.today)
 
-    def __str___(self):
-        return self.first_name 
+    def __str__(self):
+        return self.user.username
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)

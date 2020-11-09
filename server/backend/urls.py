@@ -1,11 +1,18 @@
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from django.urls.resolvers import URLPattern
-from django.conf.urls import url
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
-    path(r'auth/', obtain_jwt_token),
-    path(r'refresh/', refresh_jwt_token),
+    path('admin/', admin.site.urls),
+	
+	#path to djoser end points
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
+	
+	#path to our account's app endpoints
+    path("api/app/",include("app.urls"))
 ]

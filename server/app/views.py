@@ -9,14 +9,3 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 import json
 
-class CreateUser(generics.CreateAPIView):
-    serializer_class = UserSerializer
-
-class GetAllUsers(generics.ListAPIView):
-    serializer_class = UserListSerializer
-    queryset = User.objects.all()
-
-class PutGetDeleteOneUser(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-

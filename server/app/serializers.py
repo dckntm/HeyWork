@@ -1,18 +1,23 @@
-from rest_framework import serializers 
+from rest_framework import serializers, generics
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsOwnerProfileOrReadOnly
 from .models import *
 
-class UserListSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only = True)
     class Meta:
-        model = User
-        exlude = ['password']
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
+        model = Profile
         fields = '__all__'
-        extra_kwargs = {'password': {'write_only': True}}
 
-class UserLoginSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['email','password']
+class ProfileListCreateView(generics.ListCreateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self,serializer):
+        user = self.request.user
+
+class ProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsOwnerProfileOrReadOnly,IsAuthenticated]

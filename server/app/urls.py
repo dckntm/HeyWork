@@ -6,5 +6,7 @@ from .views import *
 from django.conf.urls import url
 
 urlpatterns = [
-    url(r'^create/$', CreateUserAPIView.as_view()),
+    path("all-profiles",ProfileListCreateView.as_view(),name="all-profiles"),
+   # retrieves profile details of the currently logged in user
+    path("profile/<int:pk>",ProfileDetailView.as_view(),name="profile"),
 ]
