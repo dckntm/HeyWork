@@ -5,7 +5,8 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from .models import *
 from .serializers import *
-from rest_framework import status
-from rest_framework.permissions import AllowAny
-import json
 
+#class CreateProfile(generics.CreateAPIView):
+#   serializer_class = ProfileDetailView
+#    def post(self,request):
+#        Profile.objects.create()
