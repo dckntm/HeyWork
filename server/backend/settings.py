@@ -48,6 +48,11 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+DJOSER = {
+    'SERIALIZERS': {
+        'user' : 'app.serializers.UserSerializer'
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

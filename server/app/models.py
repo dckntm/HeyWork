@@ -11,7 +11,7 @@ class Profile(models.Model):
     company = models.TextField()
     phone_number = models.CharField(max_length=15) 
     is_admin = models.BooleanField(default=False)  
-    created_date = models.DateField(default=datetime.date.today)
+    created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.user.username
