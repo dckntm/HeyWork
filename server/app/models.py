@@ -22,15 +22,12 @@ class Order(models.Model):
     description = models.TextField(null=True)
     rating = models.FloatField(null=True)
     review = models.TextField(null=True)
+    isComplete = models.BooleanField(default=False)
 
-class Users_Order(models.Model):
+class User_to_Order(models.Model):
     customer_id = models.ForeignKey(User,on_delete = models.CASCADE, related_name='customer')
     executor_id = models.ForeignKey(User,on_delete = models.CASCADE, related_name='executor')
     order_id = models.ForeignKey(Order,on_delete = models.CASCADE)
-
-class Status(models.Model):
-    id = models.OneToOneField(Order,on_delete = models.CASCADE,primary_key=True)
-    name = models.TextField()
 
 
 class Technology(models.Model):
@@ -39,9 +36,4 @@ class Technology(models.Model):
 
 class Stack_to_User(models.Model):
     user_id = models.ForeignKey(User,on_delete = models.CASCADE)
-    technology_id = models.ForeignKey(Technology,on_delete = models.CASCADE)
-
-
-class Stack_to_Order(models.Model):
-    order_id = models.ForeignKey(Order,on_delete = models.CASCADE)
     technology_id = models.ForeignKey(Technology,on_delete = models.CASCADE)
