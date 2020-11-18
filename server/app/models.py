@@ -7,7 +7,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=15)
     second_name = models.CharField(max_length=15)
     description = models.TextField(null=True)
-    rating = models.FloatField(null=True)
+    rating = models.FloatField(default=0)
     company = models.TextField()
     phone_number = models.CharField(max_length=15) 
     is_admin = models.BooleanField(default=False)  
