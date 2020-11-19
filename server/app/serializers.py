@@ -22,3 +22,10 @@ class RetriewCreateDestroyUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username','email','profile']
+
+class UserListSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(many=False)
+    class Meta:
+        model = User
+        fields = ['username','email','profile']
+

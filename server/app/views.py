@@ -1,3 +1,4 @@
+from django.db.models import query
 from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework import generics
@@ -47,4 +48,6 @@ class RetriewCreateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
         profile.save()
         return Response(status = status.HTTP_200_OK)
 
-
+class GetUsers(generics.ListAPIView):
+    serializer_class = UserListSerializer
+    queryset = User.objects.all()
