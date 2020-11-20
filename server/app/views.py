@@ -3,6 +3,7 @@ from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework import generics
 from rest_framework.status import HTTP_201_CREATED
+from rest_framework.utils.field_mapping import get_relation_kwargs
 from .models import *
 from .serializers import *
 from rest_framework import status
@@ -28,8 +29,8 @@ class UserCreateView(generics.CreateAPIView):
         return Response(status = status.HTTP_201_CREATED)
 
 
-class RetriewCreateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = RetriewCreateDestroyUserSerializer
+class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = RetriewUpdateDestroyUserSerializer
     queryset = User.objects.all()
 
     def put(self,request,pk):
@@ -51,3 +52,14 @@ class RetriewCreateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
 class GetUsers(generics.ListAPIView):
     serializer_class = UserListSerializer
     queryset = User.objects.all()
+
+class CreateTechnology(generics.CreateAPIView):
+    serializer_class = TechnologySerializer
+
+class RetriewUpdateDestroyTechnology(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = TechnologySerializer
+    queryset = Technology.objects.all()
+
+class GetListTechnology(generics.ListAPIView):
+    serializer_class = TechnologySerializer
+    queryset = Technology.objects.all()

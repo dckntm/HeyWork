@@ -1,3 +1,4 @@
+from django.db.models import fields
 import djoser
 from rest_framework import serializers, generics
 from rest_framework.permissions import IsAuthenticated
@@ -17,7 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password' : {'write_only' : True}}
 
 
-class RetriewCreateDestroyUserSerializer(serializers.ModelSerializer):
+class RetriewUpdateDestroyUserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
     class Meta:
         model = User
@@ -29,3 +30,7 @@ class UserListSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username','email','profile']
 
+class TechnologySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Technology
+        fields = '__all__'
