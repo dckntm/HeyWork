@@ -1,14 +1,8 @@
-from django.db.models import query
-from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework import generics
-from rest_framework.status import HTTP_201_CREATED
-from rest_framework.utils.field_mapping import get_relation_kwargs
 from .models import *
 from .serializers import *
 from rest_framework import status
-from rest_framework.decorators import api_view
-
 
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
