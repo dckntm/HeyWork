@@ -68,3 +68,16 @@ class RetriewUpdateDestroyTechnology(generics.RetrieveUpdateDestroyAPIView):
 class GetListTechnology(generics.ListAPIView):
     serializer_class = TechnologySerializer
     queryset = Technology.objects.all()
+
+class CreateOrder(generics.CreateAPIView):
+    serializer_class = OpenedOrderSerializer
+
+    def post(self,request):
+        order = Order.objects.create(title=request.data['title'],
+                                    description=request.data['description'],
+                                    deadline=request.data['deadline'])
+        customer = User.objects.get(email=request.data['customer.email'])
+        executor = User.objects.get(email=request.data['executor.email'])
+
+        user_order = User_to_Order.objects.create(customer_id = customer,executor_id = executor, order_id = order)
+        return Response(status = status.HTTP_201_CREATED)

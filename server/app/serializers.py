@@ -38,8 +38,8 @@ class UserListSerializer(serializers.ModelSerializer):
 
 class UserOrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model=User
-        fields=['email']
+        model = User
+        fields = ['email']
 
 class OpenedOrderSerializer(serializers.ModelSerializer):
     customer = UserOrderSerializer(many=False)
@@ -47,7 +47,7 @@ class OpenedOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['customer','executor','title','description','review','deadline']
+        fields = ['customer','executor','title','description','deadline']
 
 class ReturnedOrderSerializer(serializers.ModelSerializer):
     customer = UserOrderSerializer(many=False)
