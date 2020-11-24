@@ -10,11 +10,16 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['avatar','description','company','phone_number']
 
+class TechnologySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Technology
+        fields = ['name']
+
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
     class Meta:
         model = User
-        fields = ['username','email','first_name','last_name','password','profile']
+        fields = ['username','email','first_name','last_name','password','profile','technology']
         extra_kwargs = {'password' : {'write_only' : True}}
 
 
@@ -22,15 +27,11 @@ class RetriewUpdateDestroyUserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
     class Meta:
         model = User
-        fields = ['username','email','first_name','last_name','profile']
+        fields = ['username','email','first_name','last_name','profile',]
 
 class UserListSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
+    technology = TechnologySerializer(many=True)
     class Meta:
         model = User
-        fields = ['username','email','profile','first_name','last_name']
-
-class TechnologySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Technology
-        fields = '__all__'
+        fields = ['username','email','first_name','last_name','profile','technology']

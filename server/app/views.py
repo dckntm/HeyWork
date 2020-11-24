@@ -15,13 +15,16 @@ class UserCreateView(generics.CreateAPIView):
                                     last_name = request.data['last_name'],
                                     is_staff = False)
         user.set_password(request.data['password'])
-        user.save()
 
         profile = Profile.objects.create(user=user,
                                         avatar = request.data['profile.avatar'],
                                         description = request.data['profile.description'],
                                         company = request.data['profile.company'],
                                         phone_number = request.data['profile.phone_number'])
+
+        user.technology.add(request.data['technology'])
+        user.save()
+
         return Response(status = status.HTTP_201_CREATED)
 
 class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
@@ -42,8 +45,13 @@ class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
         profile.company = request.data['profile.company']
         profile.phone_number = request.data['profile.phone_number']
 
+        technology = Technology.objects.get(user=user)
+        technology.name = request.data['technology.name']
+
+
         user.save()
         profile.save()
+        technology.save()
         return Response(status = status.HTTP_200_OK)
 
 class GetUsers(generics.ListAPIView):

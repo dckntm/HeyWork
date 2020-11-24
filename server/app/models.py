@@ -1,3 +1,4 @@
+import re
 from django.db import models
 import datetime
 from django.contrib.auth.models import User
@@ -11,7 +12,7 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='static')
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
@@ -20,6 +21,7 @@ class Order(models.Model):
     rating = models.FloatField(null=True)
     review = models.TextField(null=True)
     isComplete = models.BooleanField(default=False)
+    deadline = models.DateTimeField(null=False, default=datetime.datetime.now)
 
 class User_to_Order(models.Model):
     customer_id = models.ForeignKey(User,on_delete = models.CASCADE, related_name='customer')
@@ -28,9 +30,7 @@ class User_to_Order(models.Model):
 
 
 class Technology(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.TextField()
-
-class Stack_to_User(models.Model):
-    user_id = models.ForeignKey(User,on_delete = models.CASCADE)
-    technology_id = models.ForeignKey(Technology,on_delete = models.CASCADE)
+    user = models.ManyToManyField(User,related_name='technology')
+    name = models.TextField(unique=True)
+    def __str__(self):
+        return self.name
