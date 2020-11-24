@@ -15,7 +15,7 @@ class Profile(models.Model):
         return self.user.email
 
 class Order(models.Model):
-    id = models.AutoField(primary_key=True)
+    user = models.ManyToManyField(User,through='User_to_Order',through_fields=('order_id','customer_id',))
     title = models.TextField()
     description = models.TextField(null=True)
     rating = models.FloatField(null=True)
