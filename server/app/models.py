@@ -20,9 +20,15 @@ class Order(models.Model):
     description = models.TextField(null=True)
     rating = models.FloatField(null=True)
     review = models.TextField(null=True)
-    isComplete = models.BooleanField(default=False)
     deadline = models.DateTimeField(null=False, default=datetime.datetime.now)
-
+    STATUS = [
+        (0,'opened'),
+        (1,'returned'),
+        (2,'closed')
+    ]
+    status = models.IntegerField(choices=STATUS,default=0)
+    comment = models.TextField(null=True)
+    
 class User_to_Order(models.Model):
     customer_id = models.ForeignKey(User,on_delete = models.CASCADE, related_name='customer')
     executor_id = models.ForeignKey(User,on_delete = models.CASCADE, related_name='executor')
