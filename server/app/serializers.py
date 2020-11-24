@@ -36,24 +36,29 @@ class UserListSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username','email','first_name','last_name','profile','technology']
 
+class UserOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=['email']
+
 class OpenedOrderSerializer(serializers.ModelSerializer):
-    customer = UserSerializer(many=False)
-    executor = UserSerializer(many=False)
+    customer = UserOrderSerializer(many=False)
+    executor = UserOrderSerializer(many=False)
 
     class Meta:
         model = Order
-        fields = ['title','description','review','deadline']
+        fields = ['customer','executor','title','description','review','deadline']
 
 class ReturnedOrderSerializer(serializers.ModelSerializer):
-    customer = UserSerializer(many=False)
-    executor = UserSerializer(many=False)
+    customer = UserOrderSerializer(many=False)
+    executor = UserOrderSerializer(many=False)
     class Meta:
         model = Order
         fields = ['title','description','review','deadline','rating','review','comment']
-        
+
 class ClosedOrderSerializer(serializers.ModelSerializer):
-    customer = UserSerializer(many=False)
-    executor = UserSerializer(many=False)
+    customer = UserOrderSerializer(many=False)
+    executor = UserOrderSerializer(many=False)
     class Meta:
         model = Order
         fields = ['title','description','review','deadline','rating','review']
