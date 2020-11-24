@@ -8,13 +8,13 @@ from django.contrib.auth.models import User
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['name','second_name','description','company','phone_number']
+        fields = ['avatar','description','company','phone_number']
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
     class Meta:
         model = User
-        fields = ['username','email','password','profile']
+        fields = ['username','email','first_name','last_name','password','profile']
         extra_kwargs = {'password' : {'write_only' : True}}
 
 
@@ -22,13 +22,13 @@ class RetriewUpdateDestroyUserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
     class Meta:
         model = User
-        fields = ['username','email','profile']
+        fields = ['username','email','first_name','last_name','profile']
 
 class UserListSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
     class Meta:
         model = User
-        fields = ['username','email','profile']
+        fields = ['username','email','profile','first_name','last_name']
 
 class TechnologySerializer(serializers.ModelSerializer):
     class Meta:

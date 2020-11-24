@@ -10,18 +10,19 @@ class UserCreateView(generics.CreateAPIView):
     def post(self,request):
         user = User.objects.create(username= request.data['username'],
                                     email = request.data['email'],
-                                    password = request.data['password'])
+                                    password = request.data['password'],
+                                    first_name = request.data['first_name'],
+                                    last_name = request.data['last_name'],
+                                    is_staff = False)
         user.set_password(request.data['password'])
         user.save()
 
         profile = Profile.objects.create(user=user,
-                                        name = request.data['profile.name'],
-                                        second_name = request.data['profile.second_name'],
+                                        avatar = request.data['profile.avatar'],
                                         description = request.data['profile.description'],
                                         company = request.data['profile.company'],
                                         phone_number = request.data['profile.phone_number'])
         return Response(status = status.HTTP_201_CREATED)
-
 
 class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RetriewUpdateDestroyUserSerializer
@@ -31,10 +32,12 @@ class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
         user = self.get_object()
         user.username = request.data['username']
         user.email = request.data['email']
+        user.first_name = request.data['first_name']
+        user.last_name = request.data['last_name']
+
 
         profile = Profile.objects.get(user=user)
-        profile.name = request.data['profile.name']
-        profile.second_name = request.data['profile.second_name']
+        profile.avatar = request.data['profile.avatar']
         profile.description = request.data['profile.description']
         profile.company = request.data['profile.company']
         profile.phone_number = request.data['profile.phone_number']

@@ -4,14 +4,11 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile")
-    name = models.CharField(max_length=15)
-    second_name = models.CharField(max_length=15)
     description = models.TextField(null=True)
-    rating = models.FloatField(default=0)
+    rating = models.FloatField(default = 0)
     company = models.TextField()
-    phone_number = models.CharField(max_length=15) 
-    is_admin = models.BooleanField(default=False)  
-    created_date = models.DateField(auto_now_add=True)
+    phone_number = models.CharField(max_length=15)
+    avatar = models.ImageField(upload_to='static')
 
     def __str__(self):
         return self.user.username
