@@ -94,6 +94,20 @@ class CloseOrder(generics.RetrieveUpdateDestroyAPIView):
         order.review = request.data['review']
         order.rating = request.data['rating']
         order.status = 2
+        order.comment = None
+        order.save()
+        return Response(status = status.HTTP_200_OK)
+
+class ReturnOrder(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ReturnedOrderSerializer
+    queryset = Order.objects.all()
+
+    def put(self,request,pk):
+        order = self.get_object()
+        order.review = request.data['review']
+        order.rating = request.data['rating']
+        order.status = 1
+        order.comment = request.data['comment']
 
         order.save()
         return Response(status = status.HTTP_200_OK)

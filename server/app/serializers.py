@@ -53,7 +53,9 @@ class ReturnedOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['title','description','review','deadline','rating','review','comment']
-
+        extra_kwargs = {'title' : {'read_only' : True},
+                        'description' : {'read_only' : True},
+                        'deadline' : {'read_only' : True}}
 class ClosedOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
