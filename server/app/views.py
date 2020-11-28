@@ -1,8 +1,10 @@
 from rest_framework.response import Response 
 from rest_framework import generics
+from rest_framework.serializers import Serializer
 from .models import *
 from .serializers import *
 from rest_framework import status
+from rest_framework.decorators import api_view
 
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
@@ -81,3 +83,17 @@ class CreateOrder(generics.CreateAPIView):
 
         user_order = User_to_Order.objects.create(customer_id = customer,executor_id = executor, order_id = order)
         return Response(status = status.HTTP_201_CREATED)
+
+class CloseOrder(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ClosedOrderSerializer
+    queryset = Order.objects.all()
+
+    def put(self,request,pk):
+        order = self.get_object()
+        
+        order.review = request.data['review']
+        order.rating = request.data['rating']
+        order.status = 2
+
+        order.save()
+        return Response(status = status.HTTP_200_OK)

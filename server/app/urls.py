@@ -10,5 +10,6 @@ urlpatterns = [
     path("stack/create",CreateTechnology.as_view()),
     path("stack/<int:pk>",RetriewUpdateDestroyTechnology.as_view()),
     path("stack",GetListTechnology.as_view()),
-    path("order/create",CreateOrder.as_view())
+    path("order/create",CreateOrder.as_view()),
+    path("order/close/<int:pk>",CloseOrder.as_view())
 ]

@@ -50,15 +50,14 @@ class OpenedOrderSerializer(serializers.ModelSerializer):
         fields = ['customer','executor','title','description','deadline']
 
 class ReturnedOrderSerializer(serializers.ModelSerializer):
-    customer = UserOrderSerializer(many=False)
-    executor = UserOrderSerializer(many=False)
     class Meta:
         model = Order
         fields = ['title','description','review','deadline','rating','review','comment']
 
 class ClosedOrderSerializer(serializers.ModelSerializer):
-    customer = UserOrderSerializer(many=False)
-    executor = UserOrderSerializer(many=False)
     class Meta:
         model = Order
-        fields = ['title','description','review','deadline','rating','review']
+        fields = ['title','description','deadline','rating','review']
+        extra_kwargs = {'title' : {'read_only' : True},
+                        'description' : {'read_only' : True},
+                        'deadline' : {'read_only' : True}}
