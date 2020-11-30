@@ -116,8 +116,15 @@ class ReturnOrder(generics.RetrieveUpdateDestroyAPIView):
         return Response(status = status.HTTP_200_OK)
 
 @api_view(['GET'])
-def get_executor_orders(request,pk):
+def get_customer_orders(request,pk):
     print(pk)
     orders = Order.objects.filter(user_to_order__customer=pk)
+    serializer = ClosedOrderSerializer(orders,many=True) 
+    return Response(data=serializer.data)
+
+@api_view(['GET'])
+def get_executor_orders(request,pk):
+    print(pk)
+    orders = Order.objects.filter(user_to_order__executor=pk)
     serializer = ClosedOrderSerializer(orders,many=True) 
     return Response(data=serializer.data)
