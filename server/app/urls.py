@@ -15,5 +15,6 @@ urlpatterns = [
     path("order/close/<int:pk>",CloseOrder.as_view()),
     path("order/return/<int:pk>",ReturnOrder.as_view()),
     path("customerOrders/<int:pk>",get_customer_orders),
-    path("executorOrders/<int:pk>",get_executor_orders)
+    path("executorOrders/<int:pk>",get_executor_orders),
+    path("search/",search)
 ]

@@ -1,6 +1,5 @@
 from rest_framework.response import Response 
 from rest_framework import generics
-from rest_framework.serializers import Serializer
 from .models import *
 from .serializers import *
 from rest_framework import status
@@ -126,3 +125,17 @@ def get_executor_orders(request,pk):
     orders = Order.objects.filter(user_to_order__executor=pk)
     serializer = ClosedOrderSerializer(orders,many=True) 
     return Response(data=serializer.data)
+
+@api_view(['GET'])
+def search(request):
+    tech = request.GET.get("tech",None)
+    first_name = request.GET.get("first_name",None)
+    last_name = request.GET.get("last_name",None)
+    if not tech is None:
+        users = User.objects.filter(technology__name=tech)
+        serializer = UserListSerializer(users,many=True)
+        return Response(data=serializer.data)
+    elif not first_name is None:
+        users = User.objects.filter(first_name=first_name,last_name=last_name)
+        serializer = UserListSerializer(users,many=True)
+        return Response(data=serializer.data)
