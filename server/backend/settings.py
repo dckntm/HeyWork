@@ -50,10 +50,16 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
 DJOSER = {
     'SERIALIZERS': {
         'user' : 'app.serializers.UserSerializer'
     }
+}
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
+    'USERNAME_FIELD': 'email'
 }
 
 MIDDLEWARE = [

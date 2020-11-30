@@ -4,6 +4,16 @@ from rest_framework import serializers, generics
 from rest_framework.permissions import IsAuthenticated
 from .models import *
 from django.contrib.auth.models import User
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls,user):
+        token = super().get_token(user)
+        token['is_staff'] = user.is_staff
+        return token
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:

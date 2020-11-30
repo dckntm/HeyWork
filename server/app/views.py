@@ -6,6 +6,9 @@ from .serializers import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
