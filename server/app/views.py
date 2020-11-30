@@ -84,7 +84,7 @@ class CreateOrder(generics.CreateAPIView):
         customer = User.objects.get(email=request.data['customer.email'])
         executor = User.objects.get(email=request.data['executor.email'])
 
-        user_order = User_to_Order.objects.create(customer_id = customer,executor_id = executor, order_id = order)
+        user_order = User_to_Order.objects.create(customer_id = customer.id,executor_id = executor.id, order_id = order.id)
         return Response(status = status.HTTP_201_CREATED)
 
 class CloseOrder(generics.RetrieveUpdateDestroyAPIView):
@@ -114,3 +114,10 @@ class ReturnOrder(generics.RetrieveUpdateDestroyAPIView):
 
         order.save()
         return Response(status = status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_executor_orders(request,pk):
+    print(pk)
+    orders = Order.objects.filter(user_to_order__customer=pk)
+    serializer = ClosedOrderSerializer(orders,many=True) 
+    return Response(data=serializer.data)

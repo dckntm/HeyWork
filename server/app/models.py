@@ -30,9 +30,9 @@ class Order(models.Model):
     comment = models.TextField(null=True)
     
 class User_to_Order(models.Model):
-    customer_id = models.ForeignKey(User,on_delete = models.CASCADE, related_name='customer')
-    executor_id = models.ForeignKey(User,on_delete = models.CASCADE, related_name='executor')
-    order_id = models.ForeignKey(Order,on_delete = models.CASCADE)
+    customer = models.ForeignKey(User,on_delete = models.CASCADE, related_name='customer')
+    executor = models.ForeignKey(User,on_delete = models.CASCADE, related_name='executor')
+    order = models.ForeignKey(Order,on_delete = models.CASCADE)
 
 
 class Technology(models.Model):
