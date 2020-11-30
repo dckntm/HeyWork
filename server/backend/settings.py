@@ -53,6 +53,7 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SERIALIZERS': {
+        'LOGIN_FiELD': 'email',
         'user' : 'app.serializers.UserSerializer'
     }
 }
