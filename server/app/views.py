@@ -5,6 +5,7 @@ from .serializers import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
@@ -20,8 +21,13 @@ class UserCreateView(generics.CreateAPIView):
                                     is_staff = False)
         user.set_password(request.data['password'])
 
+        if not request.data['profile.avatar']:
+            avatar = 'default_avatar.jpg'
+        else:
+            avatar = request.data['profile.avatar']
+
         profile = Profile.objects.create(user=user,
-                                        avatar = request.data['profile.avatar'],
+                                        avatar = avatar,
                                         description = request.data['profile.description'],
                                         company = request.data['profile.company'],
                                         phone_number = request.data['profile.phone_number'])
