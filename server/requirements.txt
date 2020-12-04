@@ -1,0 +1,6 @@
+Django
+psycopg2-binary>=2.8
+djangorestframework
+djangorestframework-simplejwt
+djoser
+Pillow
