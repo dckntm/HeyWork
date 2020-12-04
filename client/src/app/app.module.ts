@@ -5,18 +5,44 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { PersonalPageComponent } from './pages/personal/personal-page/personal-page.component';
+import { UserInfoComponent } from './pages/personal/components/user-info/user-info.component';
+import { UserOrdersComponent } from './pages/personal/components/user-orders/user-orders.component';
+import { HeaderComponent } from './global-components/header/header.component';
+import { OutputOrdersComponent } from './pages/personal/components/output-orders/output-orders.component';
+import { UsersComponent } from './pages/users-list/list/users/users.component';
+import { AdminPageComponent } from './pages/admin/admin-page/admin-page.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PersonalPageComponent,
+    UserInfoComponent,
+    UserOrdersComponent,
+    HeaderComponent,
+    OutputOrdersComponent,
+    UsersComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    CommonModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbModule,
+    NgbPaginationModule,
+    NgbAlertModule
   ],
   providers: [],
-  bootstrap: [AppComponent, LoginComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

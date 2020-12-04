@@ -1,1 +1,45 @@
-<p>register works!</p>
+<div class="container">
+    <form [formGroup] = "loginForm" (ngSubmit) = "onSubmit()">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Логин</label>
+            <input formControlName = "username" type="email" class="form-control" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Пароль</label>
+            <input formControlName = "password" type="password" class="form-control" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Имя</label>
+            <input formControlName = "firstName" type="password" class="form-control" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Фамилия</label>
+            <input formControlName = "lastName" type="password" class="form-control" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Электронная почта</label>
+            <input formControlName = "email" type="password" class="form-control" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Телефонный номер</label>
+            <input formControlName = "mobile" type="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Компания</label>
+            <input formControlName = "company" type="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Краткая информация о пользователе</label>
+            <textarea formControlName = "shortInfo" type="password" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Технологии, которыми вы владеете</label>
+            <br>
+            <select *ngFor = "let stak of chosenStacks; let i = index" name="select" [(ngModel)] = chosenStacks[i] class="custom-select w-25">
+                <option *ngFor = "let stack of stacks" value="stack.id">{{stack.name}}</option>
+            </select>
+            <button (click) = "addStack()" class="btn btn-primary">Добавить </button>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
