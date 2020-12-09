@@ -47,13 +47,13 @@ class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
 
 
         profile = Profile.objects.get(user=user)
-        profile.avatar = request.data['profile.avatar']
-        profile.description = request.data['profile.description']
-        profile.company = request.data['profile.company']
-        profile.phone_number = request.data['profile.phone_number']
+        profile.avatar = request.data['profile']['avatar']
+        profile.description = request.data['profile']['description']
+        profile.company = request.data['profile']['company']
+        profile.phone_number = request.data['profile']['phone_number']
 
         technology = Technology.objects.get(user=user)
-        technology.name = request.data['technology.name']
+        technology.name = request.data['technology']['name']
 
 
         user.save()
