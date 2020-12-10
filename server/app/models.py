@@ -13,7 +13,7 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='media/',blank=True)
 
     def __str__(self):
-        return self.user.email
+        return self.user.username
     
 
 
