@@ -21,18 +21,16 @@ class UserCreateView(generics.CreateAPIView):
                                     is_staff = False)
         user.set_password(request.data['password'])
 
-        if not request.data['profile.avatar']:
-            avatar = 'default_avatar.jpg'
-        else:
-            avatar = request.data['profile.avatar']
 
         profile = Profile.objects.create(user=user,
-                                        avatar = avatar,
-                                        description = request.data['profile.description'],
-                                        company = request.data['profile.company'],
-                                        phone_number = request.data['profile.phone_number'])
+                                        avatar = 'default_avatar.jpg',
+                                        description = request.data['profile']['description'],
+                                        company = request.data['profile']['company'],
+                                        phone_number = request.data['profile']['phone_number'])
 
-        user.technology.add(request.data['technology'])
+        for i in request.data['technology']:
+            user.technology.add(i)
+            
         user.save()
 
         return Response(status = status.HTTP_201_CREATED)
@@ -50,15 +48,15 @@ class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
 
 
         profile = Profile.objects.get(user=user)
-        profile.avatar = request.data['profile.avatar']
-        profile.description = request.data['profile.description']
-        profile.company = request.data['profile.company']
-        profile.phone_number = request.data['profile.phone_number']
+        profile.avatar = request.data['profile']['avatar']
+        profile.description = request.data['profile']['description']
+        profile.company = request.data['profile']['company']
+        profile.phone_number = request.data['profile']['phone_number']
 
         technology = Technology.objects.get(user=user)
-        technology.name = request.data['technology.name']
+        technology.name = request.data['technology']['name']
 
-
+        
         user.save()
         profile.save()
         technology.save()
@@ -76,7 +74,7 @@ class RetriewUpdateDestroyTechnology(generics.RetrieveUpdateDestroyAPIView):
     queryset = Technology.objects.all()
 
 class GetListTechnology(generics.ListAPIView):
-    serializer_class = TechnologySerializer
+    serializer_class = ListTechnologySerializer
     queryset = Technology.objects.all()
 
 class CreateOrder(generics.CreateAPIView):

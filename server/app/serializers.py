@@ -18,15 +18,21 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['avatar','description','company','phone_number']
+        fields = ['description','company','phone_number']
 
 class TechnologySerializer(serializers.ModelSerializer):
     class Meta:
         model = Technology
-        fields = ['name']
+        fields = ['id']
+
+class ListTechnologySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Technology
+        fields = ['id','name']
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
+    technology = TechnologySerializer(many=True)
     class Meta:
         model = User
         fields = ['username','email','first_name','last_name','password','profile','technology']

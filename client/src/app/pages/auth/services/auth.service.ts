@@ -1,3 +1,4 @@
+import { JWt } from './../../../models/jwt';
 import { Stack } from './../../../models/stack';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,6 +11,7 @@ import jwt_decode from "jwt-decode";
 })
 export class AuthService {
   private isLoggedIn: BehaviorSubject<boolean>;
+  res: JWt
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -24,38 +26,41 @@ export class AuthService {
     
 
     return this.http
-      .post("http://localhost:8000/api/user/login", {
-        email: username,
+      .post("http://0.0.0.0:8000/auth/jwt/create", {
+        username: username,
         password: password
-      }, {responseType: 'text'})
-      .subscribe((token) => {
-        console.log(token);
-        let tokenInfo = jwt_decode(token);
-        // if (tokenInfo.is_staff){
-        //   this.router.navigate(["/admin"])
-        // } else {
-        //   this.router.navigate(["/users"])
-        // }
+      })
+      .subscribe((token: JWt) => {
+        // console.log(token);
+        let tokenInfo: any = jwt_decode(token.access);
+        console.log(tokenInfo)
+        if (tokenInfo.is_staff){
+          this.router.navigate(["/admin"])
+        } else {
+          this.router.navigate(["/users"])
+        }
         localStorage.removeItem("currentUser")
-        localStorage.setItem("currentUser", token);
-        console.log(localStorage.getItem("currentUser"))
+        localStorage.setItem("currentUser", token.access);
+        // console.log(localStorage.getItem("currentUser"))
       })
   }
 
-  register(username: string, password: string, firstName: string, lastName: string, email: string, mobile: string, company: string, shortDescription: string, stack: number[]){
+  register(username: string, password: string, firstName: string, lastName: string, email: string, mobile: string, company: string, shortDescription: string, stack: any){
     console.log("signing up")
 
     return this.http
-    .post("http://localhost:8000/api/user/register",{
+    .post("http://0.0.0.0:8000/user/create",{
       username: username,
-      password: password,
+      email: email,
       first_name: firstName,
       last_name: lastName,
-      email: email,
-      phone_number: mobile,
-      company: company,
-      description: shortDescription,
-      tecnology: stack,
+      password: password,
+      profile: {
+        description: shortDescription,
+        company: company,
+        phone_number: mobile,
+      },
+      technology: stack
     }, {responseType: 'text'})
     .subscribe(x => {
       console.log(x)
@@ -65,7 +70,7 @@ export class AuthService {
 
   getStacks(): Observable<Stack[]>{
     return this.http
-    .get<Stack[]>("http://localhost:8000/api/stack", this.httpOptions)
+    .get<Stack[]>("http://0.0.0.0:8000/stack", this.httpOptions)
   }
 
   logout(){
