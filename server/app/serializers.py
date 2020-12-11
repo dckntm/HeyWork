@@ -26,6 +26,11 @@ class TechnologySerializer(serializers.ModelSerializer):
         model = Technology
         fields = ['name']
 
+class CreateTechnologySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Technology
+        fields = ['id']
+
 class ListTechnologySerializer(serializers.ModelSerializer):
     class Meta:
         model = Technology
@@ -33,7 +38,6 @@ class ListTechnologySerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
-    technology = TechnologySerializer(many=True)
     class Meta:
         model = User
         fields = ['username','email','first_name','last_name','password','profile','technology']

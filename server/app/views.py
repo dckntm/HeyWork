@@ -68,7 +68,7 @@ class GetUsers(generics.ListAPIView):
     queryset = User.objects.all()
 
 class CreateTechnology(generics.CreateAPIView):
-    serializer_class = TechnologySerializer
+    serializer_class = CreateTechnologySerializer
 
 class RetriewUpdateDestroyTechnology(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TechnologySerializer

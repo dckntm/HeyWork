@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+
+
 DEFAULT_IMAGE_PATH = 'static/default_avatar.jpg'
 
 REST_FRAMEWORK = {
@@ -102,6 +104,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+
 
 DATABASES = {
     'default': {

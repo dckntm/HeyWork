@@ -1,13 +1,9 @@
-import re
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.db import models
 import datetime
-from django.conf import settings
-from django.contrib.auth.models import User
-
 
 User._meta.get_field('email')._unique = True
-
+User.EMAIL_FIELD = 'email'
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile")
@@ -18,7 +14,7 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='media/',blank=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
     
 
 
