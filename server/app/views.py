@@ -1,5 +1,7 @@
+from django.http.response import HttpResponseRedirect
 from rest_framework.response import Response 
 from rest_framework import generics
+from rest_framework.serializers import Serializer
 from .models import *
 from .serializers import *
 from rest_framework import status
@@ -116,6 +118,13 @@ class ReturnOrder(generics.RetrieveUpdateDestroyAPIView):
 
         order.save()
         return Response(status = status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def  get_returned_orders(request):
+    returned_orders = Order.objects.filter(status = 2)
+    serializer = ReturnedOrderSerializer(returned_orders,many=True)
+    return Response(data=serializer.data)
 
 @api_view(['GET'])
 def get_customer_orders(request,pk):
