@@ -1,4 +1,5 @@
 from django.db.models import fields
+from django.db.models.query import QuerySet
 import djoser
 from rest_framework import serializers, generics
 from rest_framework.permissions import IsAuthenticated
@@ -43,7 +44,7 @@ class RetriewUpdateDestroyUserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
     class Meta:
         model = User
-        fields = ['username','email','first_name','last_name','profile',]
+        fields = ['username','email','first_name','last_name','profile']
 
 class UserListSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)

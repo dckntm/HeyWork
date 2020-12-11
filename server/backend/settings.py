@@ -46,12 +46,6 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-STATIC_URL= "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 DEFAULT_IMAGE_PATH = 'static/default_avatar.jpg'
 
 REST_FRAMEWORK = {
@@ -157,6 +151,15 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+STATIC_URL= "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 
 
 # Static files (CSS, JavaScript, Images)

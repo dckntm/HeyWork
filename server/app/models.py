@@ -1,8 +1,13 @@
 import re
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 import datetime
-from django.contrib.auth.models import User
 from django.conf import settings
+from django.contrib.auth.models import User
+
+
+User._meta.get_field('email')._unique = True
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile")
