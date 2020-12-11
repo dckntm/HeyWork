@@ -24,7 +24,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class TechnologySerializer(serializers.ModelSerializer):
     class Meta:
         model = Technology
-        fields = ['id']
+        fields = ['name']
 
 class ListTechnologySerializer(serializers.ModelSerializer):
     class Meta:

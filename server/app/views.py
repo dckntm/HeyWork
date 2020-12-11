@@ -74,9 +74,10 @@ class RetriewUpdateDestroyTechnology(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TechnologySerializer
     queryset = Technology.objects.all()
 
-class GetListTechnology(generics.ListAPIView):
+class GetTechnologyList(generics.ListAPIView):
     serializer_class = ListTechnologySerializer
     queryset = Technology.objects.all()
+
 
 class CreateOrder(generics.CreateAPIView):
     serializer_class = OpenedOrderSerializer
@@ -125,6 +126,13 @@ def  get_returned_orders(request):
     returned_orders = Order.objects.filter(status = 2)
     serializer = ReturnedOrderSerializer(returned_orders,many=True)
     return Response(data=serializer.data)
+
+@api_view(['GET'])
+def get_returned_orders(request):
+    returned_orders = Order.objects.filter(status=1)
+    serializer = ReturnedOrderSerializer(returned_orders,many=True)
+    return Response(data=serializer.data)    
+
 
 @api_view(['GET'])
 def get_customer_orders(request,pk):

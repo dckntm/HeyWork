@@ -1,4 +1,12 @@
 <div class="container">
-    <p>admin-page works!</p>
+    <div class="formGroup">
+        <div class="input-group mb-3">
+            <input [(ngModel)] = "newStackName" type="text" class="form-control" placeholder="Новый стек" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button (click) = "onClick()" class="btn btn-outline-secondary" type="button" id="button-addon2">Добавить</button>
+        </div>
+    </div>
+    <ul *ngIf = "returnedOrders$ | async as orders" class="list-group">
+        <li *ngFor = "let order of orders" class="list-group-item">{{order.title}}</li>
+    </ul>
 </div>
 
