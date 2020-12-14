@@ -7,7 +7,7 @@ urlpatterns = [
     path('auth/jwt/create', MyTokenObtainPairView.as_view()),
     path("user/<int:pk>",RetriewUpdateDestroyUser.as_view()),
     path("user/create",UserCreateView.as_view()),
-    path("users",GetUsers.as_view()),
+    path("users",get_users),
     path("stack/create",CreateTechnology.as_view()),
     path("stack/<int:pk>",RetriewUpdateDestroyTechnology.as_view()),
     path("stack",GetTechnologyList.as_view()),

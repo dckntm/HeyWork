@@ -19,14 +19,14 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['description','company','phone_number']
+        fields = ['description','avatar','company','phone_number']
 
 class TechnologySerializer(serializers.ModelSerializer):
     class Meta:
         model = Technology
         fields = ['name']
 
-class CreateTechnologySerializer(serializers.ModelSerializer):
+class UserTechnologySerializer(serializers.ModelSerializer):
     class Meta:
         model = Technology
         fields = ['id']
@@ -38,6 +38,7 @@ class ListTechnologySerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
+    technology = TechnologySerializer(many=True)
     class Meta:
         model = User
         fields = ['username','email','first_name','last_name','password','profile','technology']
@@ -46,6 +47,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class RetriewUpdateDestroyUserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
+    technology = TechnologySerializer(many=True)
     class Meta:
         model = User
         fields = ['username','email','first_name','last_name','profile']
@@ -55,7 +57,7 @@ class UserListSerializer(serializers.ModelSerializer):
     technology = TechnologySerializer(many=True)
     class Meta:
         model = User
-        fields = ['username','email','first_name','last_name','profile','technology']
+        fields = ['id','username','email','first_name','last_name','profile','technology']
 
 class UserOrderSerializer(serializers.ModelSerializer):
     class Meta:

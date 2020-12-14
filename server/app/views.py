@@ -63,12 +63,8 @@ class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
         technology.save()
         return Response(status = status.HTTP_200_OK)
 
-class GetUsers(generics.ListAPIView):
-    serializer_class = UserListSerializer
-    queryset = User.objects.all()
-
 class CreateTechnology(generics.CreateAPIView):
-    serializer_class = CreateTechnologySerializer
+    serializer_class = TechnologySerializer
 
 class RetriewUpdateDestroyTechnology(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TechnologySerializer
@@ -120,6 +116,12 @@ class ReturnOrder(generics.RetrieveUpdateDestroyAPIView):
         order.save()
         return Response(status = status.HTTP_200_OK)
 
+
+@api_view(['GET'])
+def get_users(request):
+    users = User.objects.filter(is_staff = False)
+    serializer = UserListSerializer(users,many=True)
+    return Response(data=serializer.data)
 
 @api_view(['GET'])
 def  get_returned_orders(request):
