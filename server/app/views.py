@@ -1,4 +1,4 @@
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from rest_framework.response import Response 
 from rest_framework import generics
 from rest_framework.serializers import Serializer
@@ -161,3 +161,10 @@ def search(request):
         users = User.objects.filter(first_name=first_name,last_name=last_name)
         serializer = UserListSerializer(users,many=True)
         return Response(data=serializer.data)
+
+@api_view(['GET'])
+def get_avatar(request):
+    with open("media/" + request.GET.get('path_to_avatar','default'), "rb") as image:
+        avatar = image.read()
+        byte_arr = bytearray(avatar)
+        return HttpResponse(byte_arr)
