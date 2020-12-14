@@ -11,7 +11,8 @@ import jwt_decode from "jwt-decode";
 })
 export class AuthService {
   private isLoggedIn: BehaviorSubject<boolean>;
-  res: JWt
+  res: JWt;
+  userId: number;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -33,7 +34,8 @@ export class AuthService {
       .subscribe((token: JWt) => {
         // console.log(token);
         let tokenInfo: any = jwt_decode(token.access);
-        console.log(tokenInfo)
+        console.log(tokenInfo);
+        this.userId = tokenInfo.user_id;
         if (tokenInfo.is_staff){
           this.router.navigate(["/admin"])
         } else {

@@ -154,7 +154,7 @@ def search(request):
     first_name = request.GET.get("first_name",None)
     last_name = request.GET.get("last_name",None)
     if not tech is None:
-        users = User.objects.filter(technology__name=tech)
+        users = User.objects.filter(technology__id=tech)
         serializer = UserListSerializer(users,many=True)
         return Response(data=serializer.data)
     elif not first_name is None:
