@@ -18,5 +18,5 @@ urlpatterns = [
     path("customerOrders/<int:pk>",get_customer_orders),
     path("executorOrders/<int:pk>",get_executor_orders),
     path("search/",search),
-    path("avatar/",get_avatar)
+    path("media/<str:path_to_avatar>",get_avatar)
 ]

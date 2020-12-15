@@ -163,8 +163,8 @@ def search(request):
         return Response(data=serializer.data)
 
 @api_view(['GET'])
-def get_avatar(request):
-    with open(request.GET.get('path_to_avatar','/media/default_avatar.jpg'), "rb") as image:
+def get_avatar(request,path_to_avatar):
+    with open('media/' + request.GET.get('path_to_avatar','default_avatar.jpg'), "rb") as image:
         avatar = image.read()
         byte_arr = bytearray(avatar)
         return HttpResponse(byte_arr)
