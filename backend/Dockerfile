@@ -4,4 +4,4 @@ WORKDIR /heywork
 COPY server/ .
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["python", "manage.py","runserver", "0.0.0.0:8000"]
+ENTRYPOINT ["python", "manage.py","runserver", "127.0.0.1:4200"]
