@@ -12,17 +12,23 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - "5432:5432"
-  web:
+  server:
     restart: always
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/heywork
+    build: ./backend/
     ports:
       - "8000:8000"
     depends_on:
       - db
     links:
       - db:db
+  angular-service:
+    container_name: angularcontainer
+    build: ./frontend
+    volumes:
+      - './frontend:/usr/src/app' 
+    ports: 
+      - '4200:80'
+    depends_on: 
+      - server
 volumes:
   postgres_data:
