@@ -106,34 +106,34 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASE_URL = 'postgres://mkleurhfybflhn:f0bf457d0c80910f6f50f0032d4efed89026499f6aa254bed6d3bc6ef8403af9@ec2-54-170-100-209.eu-west-1.compute.amazonaws.com:5432/d2srgui9h7jcuf'
+# DATABASE_URL = 'postgres://mkleurhfybflhn:f0bf457d0c80910f6f50f0032d4efed89026499f6aa254bed6d3bc6ef8403af9@ec2-54-170-100-209.eu-west-1.compute.amazonaws.com:5432/d2srgui9h7jcuf'
 
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd2srgui9h7jcuf',
-        'USER': 'mkleurhfybflhn',
-        'PASSWORD': 'f0bf457d0c80910f6f50f0032d4efed89026499f6aa254bed6d3bc6ef8403af9',
-        'HOST': 'ec2-54-170-100-209.eu-west-1.compute.amazonaws.com',
-        'PORT': 5432,
-    }
-}
-
-import dj_database_url
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': 'db',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd2srgui9h7jcuf',
+#         'USER': 'mkleurhfybflhn',
+#         'PASSWORD': 'f0bf457d0c80910f6f50f0032d4efed89026499f6aa254bed6d3bc6ef8403af9',
+#         'HOST': 'ec2-54-170-100-209.eu-west-1.compute.amazonaws.com',
 #         'PORT': 5432,
 #     }
 # }
+
+# import dj_database_url
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
+    }
+}
 
 CORS_ALLOW_ALL_ORIGINS = True
 
