@@ -62,7 +62,7 @@ class UserListSerializer(serializers.ModelSerializer):
 class UserOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email']
+        fields = ['id']
 
 class OpenedOrderSerializer(serializers.ModelSerializer):
     customer = UserOrderSerializer(many=False)

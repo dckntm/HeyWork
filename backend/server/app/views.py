@@ -13,7 +13,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
-
     def post(self,request):
         user = User.objects.create(username= request.data['username'],
                                     email = request.data['email'],
@@ -23,7 +22,6 @@ class UserCreateView(generics.CreateAPIView):
                                     is_staff = False)
         user.set_password(request.data['password'])
 
-
         profile = Profile.objects.create(user=user,
                                         avatar = 'default_avatar.jpg',
                                         description = request.data['profile']['description'],
@@ -32,7 +30,7 @@ class UserCreateView(generics.CreateAPIView):
 
         for i in request.data['technology']:
             user.technology.add(i)
-
+            
         user.save()
 
         return Response(status = status.HTTP_201_CREATED)
@@ -82,10 +80,11 @@ class CreateOrder(generics.CreateAPIView):
         order = Order.objects.create(title=request.data['title'],
                                     description=request.data['description'],
                                     deadline=request.data['deadline'])
-        customer = User.objects.get(email=request.data['customer.email'])
-        executor = User.objects.get(email=request.data['executor.email'])
+        # customer = User.objects.get(id=request.data['customer.id'])
+        # executor = User.objects.get(id=request.data['executor.id'])
 
-        user_order = User_to_Order.objects.create(customer_id = customer.id,executor_id = executor.id, order_id = order.id)
+        user_order = User_to_Order.objects.create(customer_id = request.data['customer']['id'],
+                                                  executor_id = request.data['executor']['id'], order_id = order.id)
         return Response(status = status.HTTP_201_CREATED)
 
 class CloseOrder(generics.RetrieveUpdateDestroyAPIView):
