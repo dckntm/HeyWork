@@ -27,7 +27,7 @@ export class AuthService {
     
 
     return this.http
-      .post("http://0.0.0.0:8000/auth/jwt/create", {
+      .post("/api/auth/jwt/create", {
         username: username,
         password: password
       })
@@ -51,7 +51,7 @@ export class AuthService {
     console.log("signing up")
 
     return this.http
-    .post("http://0.0.0.0:8000/user/create",{
+    .post("/api/user/create",{
       username: username,
       email: email,
       first_name: firstName,
@@ -72,7 +72,7 @@ export class AuthService {
 
   getStacks(): Observable<Stack[]>{
     return this.http
-    .get<Stack[]>("http://0.0.0.0:8000/stack", this.httpOptions)
+    .get<Stack[]>("/api/stack", this.httpOptions)
   }
 
   logout(){
