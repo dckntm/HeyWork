@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.2"
    
 services:
   db:
@@ -16,9 +16,9 @@ services:
       - "5433:5432"
     
   server:
-    #image: andys1mpson/heywork:backend
+    image: andys1mpson/heywork:backend
     restart: always
-    build: ./backend/
+    #build: ./backend/
     environment: 
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
@@ -33,9 +33,9 @@ services:
       - "8005:8000"
 
   angular-service:
-    #image: andys1mpson/heywork:frontend
+    image: andys1mpson/heywork:frontend
     container_name: angularcontainer
-    build: ./frontend
+    #build: ./frontend
     volumes:
       - './frontend:/usr/src/app' 
     ports: 
