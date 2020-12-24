@@ -8,7 +8,7 @@
         
     </div>
     <ul *ngIf = "returnedOrders$ | async as orders" class="list-group">
-        <li *ngFor = "let order of orders" class="list-group-item">{{order.title}}</li>
+        <li *ngFor = "let order of orders" class="list-group-item">{{order.title}} <button type="button" class="btn btn-primary">Обжаловать</button><button type="button" class="btn btn-primary">Подтвердить выполнение</button></li>
     </ul>
 </div>
 

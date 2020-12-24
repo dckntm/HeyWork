@@ -10,7 +10,7 @@ export class User {
         phone_number: string;
         avatar: string
     };
-    technology: [{name: string}]
+    technology: [{id:number, name: string}]
     avatar: string;
     img: any;
 }

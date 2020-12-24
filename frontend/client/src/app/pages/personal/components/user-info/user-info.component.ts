@@ -28,27 +28,34 @@ export class UserInfoComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.currUserId = params['id']
     });
+    this.currUserData$ = this.pageService.getUserData(this.currUserId)
+    this.pageService.getUserData(this.currUserId).subscribe(x => {
+      this.userData = x;
+      console.log(this.userData);
+      this.changeForm = this.formBuilder.group({
+        username: [ this.userData.username, Validators.required ],
+        firstName: [ this.userData.first_name, Validators.required ],
+        lastName: [ this.userData.last_name, Validators.required ],
+        email: [this.userData.email, Validators.required ],
+        mobile: [this.userData.profile.phone_number, Validators.required ],
+        company: [this.userData.profile.company, Validators.required ],
+        shortInfo: [this.userData.profile.description, Validators.required ],
+      });
+      
+    })
     this.orderForm = this.formBuilder.group({
       title: [ "", Validators.required ],
       description: [ "", Validators.required ],
       deadline: [ "", Validators.required ]
     });
-    this.changeForm = this.formBuilder.group({
-      username: [ "", Validators.required ],
-      password: [ "", Validators.required ],
-      firstName: [ "", Validators.required ],
-      lastName: [ "", Validators.required ],
-      email: ["", Validators.required ],
-      mobile: ["", Validators.required ],
-      company: ["", Validators.required ],
-      shortInfo: ["", Validators.required ],
-    });
-
-    this.currUserData$ = this.pageService.getUserData(this.currUserId)
-    this.pageService.getUserData(this.currUserId).subscribe(x => {
-      this.userData = x;
-      console.log(this.userData)
+    this.pageService.getStacks()
+    .subscribe(x => {
+      console.log(x)
+      this.stacks = x;
     })
+    
+
+    
   }
 
   open(content) {
@@ -85,8 +92,8 @@ export class UserInfoComponent implements OnInit {
   }
 
   processOutOrder(){
-    console.log(this.auth.userId, this.currUserId, this.cForm.title.value, this.cForm.description.value, this.cForm.deadline.value)
-    // this.pageService.postOpenOrder(this.auth.userId, this.currUserId, this.cForm.title.value, this.cForm.description.value, this.cForm.deadline.value)
+    console.log(this.pageService.mainUserId, this.currUserId, this.cForm.title.value, this.cForm.description.value, this.cForm.deadline.value)
+    this.pageService.postOpenOrder(this.pageService.mainUserId, this.currUserId, this.cForm.title.value, this.cForm.description.value, this.cForm.deadline.value)
   }
 
   changeUserData(){
@@ -99,8 +106,8 @@ export class UserInfoComponent implements OnInit {
       this.stacksForPost.push({id: stack})
     })
 
-    console.log(this.userForm.username.value, this.userForm.password.value, this.userForm.firstName.value, this.userForm.lastName.value, this.userForm.email.value, this.userForm.mobile.value, this.userForm.company.value, this.userForm.shortInfo.value, this.chosenStacks)
-    this.pageService.postUserData(this.currUserId, this.userForm.username.value, this.userForm.password.value, this.userForm.firstName.value, this.userForm.lastName.value, this.userForm.email.value, this.userForm.mobile.value, this.userForm.company.value, this.userForm.shortInfo.value, this.chosenStacks)
+    console.log(this.userForm.username.value, this.userForm.firstName.value, this.userForm.lastName.value, this.userForm.email.value, this.userForm.mobile.value, this.userForm.company.value, this.userForm.shortInfo.value, this.chosenStacks)
+    this.pageService.postUserData(this.currUserId, this.userForm.username.value, this.userForm.firstName.value, this.userForm.lastName.value, this.userForm.email.value, this.userForm.mobile.value, this.userForm.company.value, this.userForm.shortInfo.value, this.chosenStacks)
   }
 
 }

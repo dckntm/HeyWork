@@ -17,7 +17,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class TechnologySerializer(serializers.ModelSerializer):
     class Meta:
         model = Technology
-        fields = ['name']
+        fields = ['id','name']
 
 
 class UserTechnologySerializer(serializers.ModelSerializer):
@@ -81,6 +81,11 @@ class UserOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id']
+
+class ListOpenedOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['id', 'title', 'description', 'deadline']
 
 # Открытый заказчиком заказ
 class OpenedOrderSerializer(serializers.ModelSerializer):

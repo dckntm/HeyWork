@@ -49,17 +49,16 @@ class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
         user.last_name = request.data['last_name']
 
         profile = Profile.objects.get(user=user)
-        profile.avatar = request.data['profile']['avatar']
+        # profile.avatar = request.data['profile']['avatar']
         profile.description = request.data['profile']['description']
         profile.company = request.data['profile']['company']
         profile.phone_number = request.data['profile']['phone_number']
-
-        technology = Technology.objects.get(user=user)
-        technology.name = request.data['technology']['name']
+        # print(request.data['technology'])
+        for i in request.data['technology']:
+            user.technology.add(i)
 
         user.save()
         profile.save()
-        technology.save()
         return Response(status=status.HTTP_200_OK)
 
 
@@ -104,8 +103,8 @@ class CreateOrder(generics.CreateAPIView):
                                      description=request.data['description'],
                                      deadline=request.data['deadline'])
 
-        user_order = User_to_Order.objects.create(customer_id=request.data['customer']['id'],
-                                                  executor_id=request.data['executor']['id'], order_id=order.id)
+        user_order = User_to_Order.objects.create(customer_id=request.data['customer'],
+                                                  executor_id=request.data['executor'], order_id=order.id)
         return Response(status=status.HTTP_201_CREATED)
 
 #Закрытие заказчиком заказа
@@ -182,7 +181,7 @@ class FixOrderDetails(generics.RetrieveUpdateDestroyAPIView):
 @api_view(['GET'])
 def get_opened_customer_orders(request, pk):
     orders = Order.objects.filter(user_to_order__customer=pk, status=0)
-    serializer = OpenedOrderSerializer(orders, many=True)
+    serializer = ListOpenedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
 # Список всех возвращенных на дороботку заказчику заказов
