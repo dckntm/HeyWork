@@ -7,6 +7,15 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+
+# изменение рейтинга
+def change_user_rating(user_pk):
+    user = User.objects.get(id=user_pk)
+    closed_user_orders = Order.objects.filter(user_to_order__executor=user_pk,status=2)
+    rating = getattr(closed_user_orders,'rating')
+    user.rating = sum(rating)/len(rating)
+    user.save()
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
@@ -123,16 +132,19 @@ class ClosingOrderByCustomer(generics.RetrieveUpdateDestroyAPIView):
         return Response(status=status.HTTP_200_OK)
 
 #Подтвердить исполнителем закрытие заказа
-class CloseOrderByExecutor(generics.RetrieveUpdateDestroyAPIView):
+class ClosingOrderByExecutor(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ClosedOrderSerializer
     queryset = Order.objects.all()
 
-    def put(self, request, pk):
+    def put(self, request, pk,user_pk):
         order = self.get_object()
 
         order.status = 2
         order.comment = None
         order.save()
+
+        change_user_rating(user_pk)
+
         return Response(status=status.HTTP_200_OK)
 
 #Отправление заказа администратором заказчику 
