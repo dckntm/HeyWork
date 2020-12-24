@@ -38,7 +38,7 @@ services:
     container_name: angularcontainer
     build: ./frontend/
     volumes:
-      - './frontend:/usr/src/app' 
+      - './frontend/client/src:/client/src' 
     ports: 
       - '4200:80'
     depends_on: 

@@ -1,7 +1,7 @@
 FROM node:alpine AS builder   
 
 WORKDIR /heywork
-COPY client .
+COPY client/ .
 
 RUN npm install
 RUN npm run ng -- build --prod
