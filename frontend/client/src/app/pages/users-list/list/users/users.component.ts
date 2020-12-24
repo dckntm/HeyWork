@@ -38,9 +38,6 @@ export class UsersComponent implements OnInit {
       this.users = x;
       console.log(x);
       console.log(this.users)
-      this.users.forEach(user => {
-        this.loadImg(user.id, user.profile.avatar)
-      })
       
     })
 
@@ -53,9 +50,6 @@ export class UsersComponent implements OnInit {
         this.users = x;
         console.log(x);
         console.log(this.users)
-        this.users.forEach(user => {
-          this.loadImg(user.id, user.profile.avatar)
-        })
         
       })
     } else {
@@ -64,9 +58,6 @@ export class UsersComponent implements OnInit {
         this.users = x;
         console.log(x);
         console.log(this.users)
-        this.users.forEach(user => {
-          this.loadImg(user.id, user.profile.avatar)
-        })
         
       })
     }
@@ -78,27 +69,5 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['/user/' + id])
   }
 
-  loadImg(id: number, url: string){
-    this.pageService.getImg(url)
-    .subscribe(data => {
-      this.createImgFromBlob(id, data)
-    }, error => {
-      console.log(error);
-      console.log("error")
-    })
-  }
-
-  createImgFromBlob(id: number, img: Blob){
-    console.log('im here')
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-      this.users[id].img = reader.result;
-    }, false)
-
-    if(img) {
-      console.log('made');
-      reader.readAsDataURL(img)
-    }
-  }
 
 }

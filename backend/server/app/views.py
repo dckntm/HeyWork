@@ -182,3 +182,4 @@ def get_avatar(request, path_to_avatar):
     with open('server/media/' + request.GET.get('path_to_avatar', 'default_avatar.jpg'), "rb") as image:
         avatar = image.read()
         return HttpResponse(avatar,content_type="image/png")
+

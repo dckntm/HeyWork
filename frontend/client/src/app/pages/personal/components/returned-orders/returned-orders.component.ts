@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-returned-orders',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./returned-orders.component.scss']
 })
 export class ReturnedOrdersComponent implements OnInit {
+  @Input() currentBlock: number;
 
   constructor() { }
 

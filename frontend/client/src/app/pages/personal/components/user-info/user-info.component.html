@@ -1,6 +1,6 @@
 <!-- <div class="card" style="width: 18rem;"> -->
 <div *ngIf = "currUserData$ | async as user" class="card" style="width: 18rem;">
-    <img src="https://fainaidea.com/wp-content/uploads/2019/06/acastro_190322_1777_apple_streaming_0003.0.jpg" class="card-img-top" alt="...">
+    <img [src]="user.profile.avatar" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
       <p class="card-text">{{user.profile.description}}</p>

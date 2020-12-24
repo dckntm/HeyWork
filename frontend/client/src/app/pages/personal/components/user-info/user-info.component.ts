@@ -15,6 +15,7 @@ import { PersonalService } from '../../services/personal.service'
 })
 export class UserInfoComponent implements OnInit {
   currUserData$: Observable<User>;
+  userData: User;
   closeResult = '';
   currUserId: number;
   orderForm: FormGroup;
@@ -44,6 +45,10 @@ export class UserInfoComponent implements OnInit {
     });
 
     this.currUserData$ = this.pageService.getUserData(this.currUserId)
+    this.pageService.getUserData(this.currUserId).subscribe(x => {
+      this.userData = x;
+      console.log(this.userData)
+    })
   }
 
   open(content) {

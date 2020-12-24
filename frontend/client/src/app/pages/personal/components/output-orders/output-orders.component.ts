@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-output-orders',
@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./output-orders.component.scss']
 })
 export class OutputOrdersComponent implements OnInit {
+  @Input() currentBlock: number;
 
-  constructor() { }
+  constructor() { 
+    console.log(this.currentBlock)
+  }
 
   ngOnInit(): void {
   }

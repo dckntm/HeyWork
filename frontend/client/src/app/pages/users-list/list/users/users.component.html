@@ -9,7 +9,7 @@
     <li *ngFor = "let user of users" (click) = "navigateToUser(user.id)" routerLink = "/user/1" class="list-group-item">
       <div class="row">
         <div class="col-2">
-          <img [src]="user.avatar" alt="..." class="img-thumbnail border-0">
+          <img [src]="user.profile.avatar" alt="..." class="img-thumbnail border-0">
         </div>
         <div class="col-10">
           <div class="row">{{user.first_name}} {{user.last_name}}</div>

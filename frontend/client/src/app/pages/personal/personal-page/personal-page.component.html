@@ -5,17 +5,17 @@
         </div>
         <div class="col">
             <div class="btn-group " role="group" aria-label="Basic outlined example">
-                <div *ngFor = 'let status of statuses'>
-                    <button  type="button" class="btn btn-outline-primary" >{{status.title}}</button>
+                <div >
+                    <button *ngFor = 'let status of statuses' type="button" class="btn btn-outline-primary" (click) = 'setTable(status.id)'>{{status.value}}</button>
                 </div>
                 
                 
             </div>
             <div class="row">
-                <app-user-orders></app-user-orders>
-                <app-output-orders></app-output-orders>
-                <app-process-orders></app-process-orders>
-                <app-returned-orders></app-returned-orders>
+                <app-user-orders [currentBlock] = 'chosenTable'></app-user-orders>
+                <app-output-orders [currentBlock] = 'chosenTable'></app-output-orders>
+                <app-process-orders [currentBlock] = 'chosenTable'></app-process-orders>
+                <app-returned-orders [currentBlock] = 'chosenTable'></app-returned-orders>
             </div>
         </div>
         
