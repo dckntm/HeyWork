@@ -25,6 +25,8 @@ urlpatterns = [
     path("executor/opened/<int:pk>",get_opened_executor_orders),
     path("executor/expects/<int:pk>",get_expects_executor_orders),
 
+    path("admin/returned_orders/",get_returned_orders),
+
     path("search/", search),
     path("media/<str:path_to_avatar>", get_avatar)
 ]

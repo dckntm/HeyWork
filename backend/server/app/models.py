@@ -15,8 +15,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.email
-    
-
 
 class Order(models.Model):
     user = models.ManyToManyField(User,through='User_to_Order',through_fields=('order_id','customer_id',))
@@ -38,7 +36,6 @@ class User_to_Order(models.Model):
     customer = models.ForeignKey(User,on_delete = models.CASCADE, related_name='customer')
     executor = models.ForeignKey(User,on_delete = models.CASCADE, related_name='executor')
     order = models.ForeignKey(Order,on_delete = models.CASCADE)
-
 
 class Technology(models.Model):
     user = models.ManyToManyField(User,related_name='technology')

@@ -6,7 +6,7 @@ from .serializers import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
-from django.core.files import File
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
@@ -219,6 +219,13 @@ def get_opened_executor_orders(request, pk):
 def get_expects_executor_orders(request, pk):
     orders = Order.objects.filter(user_to_order__executor=pk, status=3)
     serializer = ClosedOrderSerializer(orders, many=True)
+    return Response(data=serializer.data)
+
+# Список всех возвращенных заказов
+@api_view(['GET'])
+def get_returned_orders(request):
+    orders = Order.objects.filter(status=2)
+    serializer = ReturnedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
 #endregion
