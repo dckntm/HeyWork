@@ -193,7 +193,7 @@ class FixOrderDetails(generics.RetrieveUpdateDestroyAPIView):
         order.review = request.data['review']
         order.rating = request.data['rating']
         order.status = 3
-        
+        order.comment = None
         order.save()
         return Response(status=status.HTTP_200_OK)
 
