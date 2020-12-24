@@ -152,7 +152,7 @@ class SendForConsiderationOrderToAdmin(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ClosedOrderSerializer
     queryset = Order.objects.all()
 
-    def put(self, request, pk,user_pk):
+    def put(self, request, pk):
         order = self.get_object()
 
         order.status = 1
