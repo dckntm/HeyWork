@@ -24,13 +24,14 @@ export class PersonalPageComponent implements OnInit {
       id: 3,
       value: 'Возвращённые'
     }
-  ]
+  ];
 
   constructor() { 
     console.log(this.chosenTable)
   }
 
   ngOnInit(): void {
+    
   }
 
   setTable(value: number){
