@@ -10,7 +10,7 @@ from django.core.files import File
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-
+#region User
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
@@ -63,6 +63,21 @@ class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
         return Response(status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+def get_avatar(request, path_to_avatar):
+    with open('server/media/' + request.GET.get('path_to_avatar', 'default_avatar.jpg'), "rb") as image:
+        avatar = image.read()
+        return HttpResponse(avatar,content_type="image/png")
+
+@api_view(['GET'])
+def get_users(request):
+    users = User.objects.filter(is_staff=False)
+    serializer = UserListSerializer(users, many=True)
+    return Response(data=serializer.data)
+
+#endregion
+
+#region Stack
 class CreateTechnology(generics.CreateAPIView):
     serializer_class = TechnologySerializer
 
@@ -76,7 +91,11 @@ class GetTechnologyList(generics.ListAPIView):
     serializer_class = ListTechnologySerializer
     queryset = Technology.objects.all()
 
+#endregion
 
+#region Orders
+
+#Открытие заказа исполнителем
 class CreateOrder(generics.CreateAPIView):
     serializer_class = OpenedOrderSerializer
 
@@ -89,8 +108,8 @@ class CreateOrder(generics.CreateAPIView):
                                                   executor_id=request.data['executor']['id'], order_id=order.id)
         return Response(status=status.HTTP_201_CREATED)
 
-
-class CloseOrder(generics.RetrieveUpdateDestroyAPIView):
+#Закрытие заказчиком заказа
+class ClosingOrderByCustomer(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ClosedOrderSerializer
     queryset = Order.objects.all()
 
@@ -99,68 +118,99 @@ class CloseOrder(generics.RetrieveUpdateDestroyAPIView):
 
         order.review = request.data['review']
         order.rating = request.data['rating']
+        order.status = 3
+        order.comment = None
+        order.save()
+        return Response(status=status.HTTP_200_OK)
+
+#Подтвердить исполнителем закрытие заказа
+class CloseOrderByExecutor(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ClosedOrderSerializer
+    queryset = Order.objects.all()
+
+    def put(self, request, pk):
+        order = self.get_object()
+
         order.status = 2
         order.comment = None
         order.save()
         return Response(status=status.HTTP_200_OK)
 
-
+#Отправление заказа администратором заказчику 
 class ReturnOrder(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReturnedOrderSerializer
     queryset = Order.objects.all()
 
     def put(self, request, pk):
         order = self.get_object()
-        order.review = request.data['review']
-        order.rating = request.data['rating']
-        order.status = 1
-        order.comment = request.data['comment']
 
+        order.comment = request.data['comment']
         order.save()
         return Response(status=status.HTTP_200_OK)
 
+#Исправление заказа заказчиком
+class FixOrderDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ReturnedOrderSerializer
+    queryset = Order.objects.all()
 
+    def put(self, request, pk):
+        order = self.get_object()
+
+        order.review = request.data['review']
+        order.rating = request.data['rating']
+        order.status = 3
+        
+        order.save()
+        return Response(status=status.HTTP_200_OK)
+
+#endregion
+
+#region Get user orders
+
+# Список всех открытых заказчиком заказов
 @api_view(['GET'])
-def get_users(request):
-    users = User.objects.filter(is_staff=False)
-    serializer = UserListSerializer(users, many=True)
+def get_opened_customer_orders(request, pk):
+    orders = Order.objects.filter(user_to_order__customer=pk, status=0)
+    serializer = ClosedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
-
-@api_view(['GET'])
-def get_returned_orders(request):
-    returned_orders = Order.objects.filter(status=2)
-    serializer = ReturnedOrderSerializer(returned_orders, many=True)
-    return Response(data=serializer.data)
-
-
+# Список всех возвращенных на дороботку заказчику заказов
 @api_view(['GET'])
 def get_customer_returned_orders(request, pk):
-    returned_orders = Order.objects.filter(user_to_order__customer=pk, status=1)
+    returned_orders = Order.objects.filter(user_to_order__customer=pk, status=2)
     serializer = ReturnedOrderSerializer(returned_orders, many=True)
     return Response(data=serializer.data)
 
 
+# Список закрытых заказов для заказчика
 @api_view(['GET'])
-def get_returned_orders(request):
-    returned_orders = Order.objects.filter(status=1)
-    serializer = ReturnedOrderSerializer(returned_orders, many=True)
-    return Response(data=serializer.data)
-
-
-@api_view(['GET'])
-def get_customer_orders(request, pk):
-    orders = Order.objects.filter(user_to_order__customer=pk)
+def get_closed_customer_orders(request, pk):
+    orders = Order.objects.filter(user_to_order__customer=pk, status=2)
     serializer = ClosedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
-
+# Список выполненных исполнителем заказов
 @api_view(['GET'])
-def get_executor_orders(request, pk):
-    orders = Order.objects.filter(user_to_order__executor=pk)
+def get_closed_executor_orders(request, pk):
+    orders = Order.objects.filter(user_to_order__executor=pk, status=2)
     serializer = ClosedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
+# Список открытых исполнителю заказов
+@api_view(['GET'])
+def get_opened_executor_orders(request, pk):
+    orders = Order.objects.filter(user_to_order__executorr=pk, status=0)
+    serializer = ClosedOrderSerializer(orders, many=True)
+    return Response(data=serializer.data)
+
+# Список заказов ожидающих подтверждения закрытия у исполнителя 
+@api_view(['GET'])
+def get_expects_executor_orders(request, pk):
+    orders = Order.objects.filter(user_to_order__executor=pk, status=3)
+    serializer = ClosedOrderSerializer(orders, many=True)
+    return Response(data=serializer.data)
+
+#endregion
 
 @api_view(['GET'])
 def search(request):
@@ -177,9 +227,4 @@ def search(request):
         return Response(data=serializer.data)
 
 
-@api_view(['GET'])
-def get_avatar(request, path_to_avatar):
-    with open('server/media/' + request.GET.get('path_to_avatar', 'default_avatar.jpg'), "rb") as image:
-        avatar = image.read()
-        return HttpResponse(avatar,content_type="image/png")
 

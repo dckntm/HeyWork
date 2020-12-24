@@ -11,11 +11,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['is_staff'] = user.is_staff
         return token
 
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ['description', 'avatar', 'company', 'phone_number']
+# region Stack
 
 
 class TechnologySerializer(serializers.ModelSerializer):
@@ -35,6 +31,16 @@ class ListTechnologySerializer(serializers.ModelSerializer):
         model = Technology
         fields = ['id', 'name']
 
+# endregion
+
+# region User
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['description', 'avatar', 'company', 'phone_number']
+
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
@@ -53,7 +59,8 @@ class RetriewUpdateDestroyUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'profile','technology']
+        fields = ['username', 'email', 'first_name',
+                  'last_name', 'profile', 'technology']
 
 
 class UserListSerializer(serializers.ModelSerializer):
@@ -65,13 +72,17 @@ class UserListSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'first_name',
                   'last_name', 'profile', 'technology']
 
+# endregion
+
+# region Order
+
 
 class UserOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id']
 
-
+# Открытый заказчиком заказ
 class OpenedOrderSerializer(serializers.ModelSerializer):
     customer = UserOrderSerializer(many=False)
     executor = UserOrderSerializer(many=False)
@@ -80,17 +91,27 @@ class OpenedOrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['customer', 'executor', 'title', 'description', 'deadline']
 
+# Ожидающий подтверждения о закрытии исполнителем заказ
+class ExpectsOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['title', 'description', 'deadline', 'rating', 'review']
+        extra_kwargs = {'title': {'read_only': True},
+                        'description': {'read_only': True},
+                        'deadline': {'read_only': True}}
 
+# Возвращенный исполнителем заказ
 class ReturnedOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['title', 'description', 'review',
-                  'deadline', 'rating', 'review', 'comment']
+        fields = ['title', 'description', 'deadline',
+                  'review', 'rating', 'review', 'comment']
         extra_kwargs = {'title': {'read_only': True},
                         'description': {'read_only': True},
                         'deadline': {'read_only': True}}
 
 
+# Закрытый заказ
 class ClosedOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
@@ -98,3 +119,5 @@ class ClosedOrderSerializer(serializers.ModelSerializer):
         extra_kwargs = {'title': {'read_only': True},
                         'description': {'read_only': True},
                         'deadline': {'read_only': True}}
+
+# endregion
