@@ -6,7 +6,7 @@ from rest_framework_simplejwt import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path to djoser end points
+    # path to djoser endpoints
     path('auth/', include('djoser.urls')),
     # path to our account's app endpoints
     path("", include("app.urls"))
