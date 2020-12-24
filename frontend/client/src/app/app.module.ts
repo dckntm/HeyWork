@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProcessOrdersComponent } from './pages/personal/components/process-orders/process-orders.component';
 import { ReturnedOrdersComponent } from './pages/personal/components/returned-orders/returned-orders.component';
+import { OpenedCustomerOrdersComponent } from './pages/personal/components/opened-customer-orders/opened-customer-orders.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ReturnedOrdersComponent } from './pages/personal/components/returned-or
     UsersComponent,
     AdminPageComponent,
     ProcessOrdersComponent,
-    ReturnedOrdersComponent
+    ReturnedOrdersComponent,
+    OpenedCustomerOrdersComponent
   ],
   imports: [
     BrowserModule,
