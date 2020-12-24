@@ -5,11 +5,12 @@ import { OpenedOrder } from 'src/app/models/open-orders';
 import { PersonalService } from '../../services/personal.service';
 
 @Component({
-  selector: 'app-opened-customer-orders',
-  templateUrl: './opened-customer-orders.component.html',
-  styleUrls: ['./opened-customer-orders.component.scss']
+  selector: 'app-orders-to-approve',
+  templateUrl: './orders-to-approve.component.html',
+  styleUrls: ['./orders-to-approve.component.scss']
 })
-export class OpenedCustomerOrdersComponent implements OnInit {
+export class OrdersToApproveComponent implements OnInit {
+
   selected = 0;
   hovered = 0;
   readonly = false;
@@ -27,7 +28,7 @@ export class OpenedCustomerOrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pageService.getOpenCustomer(this.currUserId).subscribe(x => {
+    this.pageService.getOrdersToApprove(this.currUserId).subscribe(x => {
       this.orders = x;
       console.log(this.orders)
     })
@@ -70,5 +71,12 @@ export class OpenedCustomerOrdersComponent implements OnInit {
     this.pageService.postCloseOrder(this.chosenOrder, this.comment, this.selected)
   }
 
+  approveOrder(){
+    this.pageService.closeOrder(this.currUserId, this.chosenOrder)
+  }
+
+  sendToAdmin(){
+    this.pageService.sendToAdmin(this.chosenOrder)
+  }
 
 }

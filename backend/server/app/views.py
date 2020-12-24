@@ -152,7 +152,7 @@ class SendForConsiderationOrderToAdmin(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ClosedOrderSerializer
     queryset = Order.objects.all()
 
-    def put(self, request, pk,user_pk):
+    def put(self, request, pk):
         order = self.get_object()
 
         order.status = 1
@@ -249,6 +249,13 @@ def get_expects_executor_orders(request, pk):
 def get_returned_orders(request):
     orders = Order.objects.filter(status=2)
     serializer = ReturnedOrderSerializer(orders, many=True)
+    return Response(data=serializer.data)
+
+
+@api_view(['GET'])
+def get_exects_orders(request,pk):
+    orders = Order.objects.filter(user_to_order__executor=pk, status=3)
+    serializer = ListClosedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
 #endregion
