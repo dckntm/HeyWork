@@ -136,7 +136,7 @@ def get_returned_orders(request):
 
 @api_view(['GET'])
 def get_customer_returned_orders(request, pk):
-    returned_orders = Order.objects.filter(user_to_order__customer=pk)
+    returned_orders = Order.objects.filter(user_to_order__customer=pk, status=1)
     serializer = ReturnedOrderSerializer(returned_orders, many=True)
     return Response(data=serializer.data)
 
