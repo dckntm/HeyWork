@@ -6,7 +6,7 @@ from .serializers import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
-
+from django.core.files import File
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
@@ -181,5 +181,4 @@ def search(request):
 def get_avatar(request, path_to_avatar):
     with open('server/media/' + request.GET.get('path_to_avatar', 'default_avatar.jpg'), "rb") as image:
         avatar = image.read()
-        byte_arr = bytearray(avatar)
-        return HttpResponse(byte_arr)
+        return HttpResponse(avatar,content_type="image/png")
