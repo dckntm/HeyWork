@@ -84,8 +84,6 @@ class CreateOrder(generics.CreateAPIView):
         order = Order.objects.create(title=request.data['title'],
                                      description=request.data['description'],
                                      deadline=request.data['deadline'])
-        # customer = User.objects.get(id=request.data['customer.id'])
-        # executor = User.objects.get(id=request.data['executor.id'])
 
         user_order = User_to_Order.objects.create(customer_id=request.data['customer']['id'],
                                                   executor_id=request.data['executor']['id'], order_id=order.id)
