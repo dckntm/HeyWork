@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user';
 import { Stack } from 'src/app/models/stack';
 import { OpenedOrder } from 'src/app/models/open-orders'
 import jwt_decode from "jwt-decode";
+import { retunedOrder } from 'src/app/models/return-orders';
 
 @Injectable({
   providedIn: 'root'
@@ -80,5 +81,34 @@ export class PersonalService {
   getOpenCustomer(id: number): Observable<OpenedOrder[]>{
     return this.http
     .get<OpenedOrder[]>('http://127.0.0.1:8005/customer_orders/' + id, this.httpOptions)
+  }
+
+  getOrdersToApprove(id: number): Observable<retunedOrder[]>{
+    return this.http
+    .get<retunedOrder[]>('http://127.0.0.1:8005/exected_order/' + id, this.httpOptions)
+  }
+
+  closeOrder(userId: number, orderId: number){
+    return this.http
+    .put('http://127.0.0.1:8005/order/close_by_executor/' + orderId + '/' + userId, this.httpOptions)
+  }
+
+  sendToAdmin(orderId: number){
+    return this.http
+    .put('http://127.0.0.1:8005/order/to_admin_review/' + orderId, this.httpOptions)
+    .subscribe(x => {
+      console.log(x)
+    })
+  }
+
+  postCloseOrder(id: number, revue: string, rating: number){
+    return this.http
+    .put('http://127.0.0.1:8005/order/close_by_customer/' + id, {
+      review: revue,
+      rating: rating,
+    })
+    .subscribe(x => {
+      console.log(x)
+    })
   }
 }

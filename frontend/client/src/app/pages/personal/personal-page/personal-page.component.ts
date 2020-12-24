@@ -23,6 +23,14 @@ export class PersonalPageComponent implements OnInit {
     {
       id: 3,
       value: 'Возвращённые'
+    },
+    {
+      id: 4,
+      value: 'В проецссе',
+    },
+    {
+      id: 5,
+      value: 'Для подтверждения'
     }
   ];
 
@@ -31,7 +39,6 @@ export class PersonalPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
   }
 
   setTable(value: number){

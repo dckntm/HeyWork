@@ -10,26 +10,24 @@
     </button>
   </div>
   <div class="modal-body">
-    <p>Название заказа: {{orders[chosenOrder].title}}</p>
-    <p>Описание заказа: {{orders[chosenOrder].description}}</p>
-    <p>Дедлайн заказа: {{orders[chosenOrder].deadline}}</p>
+    <p>Название заказа: {{orders[orderToOpen].title}}</p>
+    <p>Описание заказа: {{orders[orderToOpen].description}}</p>
+    <p>Дедлайн заказа: {{orders[orderToOpen].deadline}}</p>
     <form>
       <div class="form-group">
         <label for="dateOfBirth">Комментарий</label>
         <div class="input-group">
-          <input id="dateOfBirth" class="form-control">
+          <textarea [(ngModel)] = "comment" name="comment" class="form-control"></textarea>
         </div>
       </div>
       <div class="form-group">
-        <label for="dateOfBirth">Рейтинг</label>
-        <div class="input-group">
-          <input id="dateOfBirth" class="form-control">
-        </div>
+        <label for="dateOfBirth">Рейтинг:  </label>
+        <ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly" [max]="5"></ngb-rating>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); onSubmit()">Закрыть</button>
   </div>
 </ng-template>
 

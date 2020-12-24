@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent implements OnInit {
+  orders: retunedOrder[]
   returnedOrders$: Observable<retunedOrder[]>
   newStackName: string = ''
 
@@ -17,6 +18,10 @@ export class AdminPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadReturnedOrders()
+    this.pageService.getConflicts().subscribe(x => {
+      this.orders = x
+      console.log(this.orders)
+    })
   }
 
   onClick(){
