@@ -87,6 +87,13 @@ class ListOpenedOrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['id', 'title', 'description', 'deadline']
 
+class ListReturnedOrderSerializer(serializers.ModelSerializer):
+    customer = UserOrderSerializer(many=False)
+    executor = UserOrderSerializer(many=False)
+    class Meta:
+        model = Order
+        fields = ['customer', 'executor', 'id', 'title', 'description', 'deadline', 'rating', 'review']
+
 class ListClosedOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order

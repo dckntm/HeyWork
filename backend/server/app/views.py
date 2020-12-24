@@ -247,8 +247,8 @@ def get_expects_executor_orders(request, pk):
 # Список всех возвращенных заказов
 @api_view(['GET'])
 def get_returned_orders(request):
-    orders = Order.objects.filter(status=2)
-    serializer = ReturnedOrderSerializer(orders, many=True)
+    orders = Order.objects.filter(status=1)
+    serializer = ListReturnedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
 
