@@ -248,6 +248,7 @@ def get_expects_executor_orders(request, pk):
 @api_view(['GET'])
 def get_returned_orders(request):
     orders = Order.objects.filter(status=1)
+    print(orders)
     serializer = ListReturnedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 

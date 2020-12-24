@@ -3,6 +3,7 @@ import { AdminService } from './../services/admin.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-page',
@@ -12,9 +13,17 @@ import { Router } from '@angular/router';
 export class AdminPageComponent implements OnInit {
   orders: retunedOrder[]
   returnedOrders$: Observable<retunedOrder[]>
-  newStackName: string = ''
+  newStackName: string = '';
+  selected = 0;
+  hovered = 0;
+  readonly = false;
+  closeResult = '';
+  currUserId: number;
+  chosenOrder: number;
+  orderToOpen: number;
+  comment: string = '';
 
-  constructor(private pageService: AdminService, private router: Router) { }
+  constructor(private modalService: NgbModal, private pageService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadReturnedOrders()
@@ -35,6 +44,39 @@ export class AdminPageComponent implements OnInit {
   logout(){
     localStorage.removeItem('currentUser');
     this.router.navigate(['/'])
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    this.chosenOrder = 0;
+    this.orderToOpen = 0;
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  chooseOrder(id: number){
+    this.chosenOrder = null;
+    this.orderToOpen = null;
+    this.chosenOrder = this.orders[id].id;
+    this.orderToOpen = id;
+    console.log(this.chosenOrder)
+    let dateTime = this.orders[id].deadline.split('T');
+    let russianDate = dateTime[0].split('-')
+    this.orders[id].deadline = russianDate[2] + '.' + russianDate[1] + '.' + russianDate[0];
+    dateTime = null;
+    russianDate = null;
   }
 
 
