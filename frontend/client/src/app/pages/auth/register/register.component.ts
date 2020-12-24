@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getStacks()
     .subscribe(x => {
+      console.log(x)
       this.stacks = x;
     })
     this.loginForm = this.formBuilder.group({

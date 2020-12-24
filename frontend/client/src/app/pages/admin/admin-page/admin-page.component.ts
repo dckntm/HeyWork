@@ -2,6 +2,7 @@ import { retunedOrder } from './../../../models/return-orders';
 import { AdminService } from './../services/admin.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-page',
@@ -12,7 +13,7 @@ export class AdminPageComponent implements OnInit {
   returnedOrders$: Observable<retunedOrder[]>
   newStackName: string = ''
 
-  constructor(private pageService: AdminService) { }
+  constructor(private pageService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadReturnedOrders()
@@ -24,7 +25,11 @@ export class AdminPageComponent implements OnInit {
 
   loadReturnedOrders(){
     this.returnedOrders$ = this.pageService.getConflicts()
-    
+  }
+
+  logout(){
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/'])
   }
 
 

@@ -8,3 +8,5 @@ COPY docker-entrypoint.sh .
 
 RUN pip install --no-cache-dir -r ./server/requirements.txt
 ENTRYPOINT ["sh","./docker-entrypoint.sh"]
+
+
