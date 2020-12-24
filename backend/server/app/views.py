@@ -148,6 +148,17 @@ class ReturnOrder(generics.RetrieveUpdateDestroyAPIView):
         order.save()
         return Response(status=status.HTTP_200_OK)
 
+# Отменить возврат заказа на редактирование
+class CancelOrderReturn(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ClosedOrderSerializer
+    queryset = Order.objects.all()
+
+    def put(self, request, pk):
+        order = self.get_object()
+        order.status = 2
+        order.save()
+        return Response(status=status.HTTP_200_OK)
+
 #Исправление заказа заказчиком
 class FixOrderDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReturnedOrderSerializer

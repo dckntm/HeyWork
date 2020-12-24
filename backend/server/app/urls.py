@@ -14,6 +14,7 @@ urlpatterns = [
     path("order/create", CreateOrder.as_view()),
     path("order/close_by_customer/<int:pk>", ClosingOrderByCustomer.as_view()),
     path("order/close_by_executor/<int:pk>", CloseOrderByExecutor.as_view()),
+    path("order/cancel_refund/<int:pk>",CancelOrderReturn.as_view()),
     path("order/return/<int:pk>", ReturnOrder.as_view()),
     path("order/fix/<int:pk>",FixOrderDetails.as_view()),
 
