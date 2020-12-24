@@ -19,17 +19,17 @@ export class ListService {
 
   getStacks(): Observable<Stack[]>{
     return this.http
-    .get<Stack[]>("http://0.0.0.0:8000/stack", this.httpOptions)
+    .get<Stack[]>("http://127.0.0.1:8005/stack", this.httpOptions)
   }
 
   getUsers(): Observable<User[]>{
     return this.http
-    .get<User[]>('http://0.0.0.0:8000/users',this.httpOptions)
+    .get<User[]>('http://127.0.0.1:8005/users',this.httpOptions)
   }
 
   getImg(imageUrl: string): Observable<Blob>{
     return this.http
-    .get('http://0.0.0.0:8000' +imageUrl, {responseType: 'blob'})
+    .get('http://127.0.0.1:8005' +imageUrl, {responseType: 'blob'})
   }
 
   getUsersOptions(tec: number){
@@ -42,6 +42,6 @@ export class ListService {
       }
     }
     return this.http
-    .get<User[]>('http://0.0.0.0:8000/search', opt)
+    .get<User[]>('http://127.0.0.1:8005/search', opt)
   }
 }

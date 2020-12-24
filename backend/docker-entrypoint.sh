@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 cd /heywork
 #python manage.py makemigrations
 python server/manage.py migrate

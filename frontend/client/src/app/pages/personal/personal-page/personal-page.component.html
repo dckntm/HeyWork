@@ -4,9 +4,21 @@
             <app-user-info></app-user-info>
         </div>
         <div class="col">
-            <app-user-orders></app-user-orders>
-            <app-output-orders></app-output-orders>
+            <div class="btn-group " role="group" aria-label="Basic outlined example">
+                <div *ngFor = 'let status of statuses'>
+                    <button  type="button" class="btn btn-outline-primary" >{{status.title}}</button>
+                </div>
+                
+                
+            </div>
+            <div class="row">
+                <app-user-orders></app-user-orders>
+                <app-output-orders></app-output-orders>
+                <app-process-orders></app-process-orders>
+                <app-returned-orders></app-returned-orders>
+            </div>
         </div>
+        
     </div>
     
 </div>

@@ -13,6 +13,7 @@ export class AuthService {
   private isLoggedIn: BehaviorSubject<boolean>;
   res: JWt;
   userId: number;
+  userIsAdmin: boolean;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -27,7 +28,7 @@ export class AuthService {
     
 
     return this.http
-      .post("/api/auth/jwt/create", {
+      .post("http://127.0.0.1:8005/auth/jwt/create", {
         username: username,
         password: password
       })
@@ -36,6 +37,7 @@ export class AuthService {
         let tokenInfo: any = jwt_decode(token.access);
         console.log(tokenInfo);
         this.userId = tokenInfo.user_id;
+        this.userIsAdmin = tokenInfo.is_staff;
         if (tokenInfo.is_staff){
           this.router.navigate(["/admin"])
         } else {
@@ -51,7 +53,7 @@ export class AuthService {
     console.log("signing up")
 
     return this.http
-    .post("/api/user/create",{
+    .post("http://127.0.0.1:8005/user/create",{
       username: username,
       email: email,
       first_name: firstName,
@@ -72,7 +74,7 @@ export class AuthService {
 
   getStacks(): Observable<Stack[]>{
     return this.http
-    .get<Stack[]>("/api/stack", this.httpOptions)
+    .get<Stack[]>("http://127.0.0.1:8005/stack", this.httpOptions)
   }
 
   logout(){

@@ -17,6 +17,8 @@ import { UsersComponent } from './pages/users-list/list/users/users.component';
 import { AdminPageComponent } from './pages/admin/admin-page/admin-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { ProcessOrdersComponent } from './pages/personal/components/process-orders/process-orders.component';
+import { ReturnedOrdersComponent } from './pages/personal/components/returned-orders/returned-orders.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
     HeaderComponent,
     OutputOrdersComponent,
     UsersComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    ProcessOrdersComponent,
+    ReturnedOrdersComponent
   ],
   imports: [
     BrowserModule,

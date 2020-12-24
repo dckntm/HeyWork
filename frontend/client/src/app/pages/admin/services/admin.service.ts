@@ -19,7 +19,7 @@ export class AdminService {
   addStack(stackName: string){
     console.log(stackName)
     return this.http
-    .post("http://0.0.0.0:8000/stack/create",{
+    .post("http://127.0.0.1:8005/stack/create",{
       name: stackName
     })
     .subscribe(x => {
@@ -29,6 +29,6 @@ export class AdminService {
 
   getConflicts(): Observable<retunedOrder[]>{
     return this.http
-    .get<retunedOrder[]>("http://0.0.0.0:8000/returned_orders", this.httpOptions)
+    .get<retunedOrder[]>("http://127.0.0.1:8005/returned_orders", this.httpOptions)
   }
 }
