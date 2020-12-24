@@ -116,7 +116,7 @@ class CreateOrder(generics.CreateAPIView):
                                                   executor_id=request.data['executor'], order_id=order.id)
         return Response(status=status.HTTP_201_CREATED)
 
-#Закрытие заказчиком заказа
+# Закрытие заказчиком заказа
 class ClosingOrderByCustomer(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ClosedOrderSerializer
     queryset = Order.objects.all()
@@ -131,7 +131,7 @@ class ClosingOrderByCustomer(generics.RetrieveUpdateDestroyAPIView):
         order.save()
         return Response(status=status.HTTP_200_OK)
 
-#Подтвердить исполнителем закрытие заказа
+# Подтвердить исполнителем закрытие заказа
 class ClosingOrderByExecutor(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ClosedOrderSerializer
     queryset = Order.objects.all()
@@ -147,7 +147,19 @@ class ClosingOrderByExecutor(generics.RetrieveUpdateDestroyAPIView):
 
         return Response(status=status.HTTP_200_OK)
 
-#Отправление заказа администратором заказчику 
+# Отправить исполнителем заказ на рассмотрение администратора
+class SendForConsiderationOrderToAdmin(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ClosedOrderSerializer
+    queryset = Order.objects.all()
+
+    def put(self, request, pk,user_pk):
+        order = self.get_object()
+
+        order.status = 1
+        order.save()
+        return Response(status=status.HTTP_200_OK)
+
+# Отправление заказа администратором заказчику 
 class ReturnOrder(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReturnedOrderSerializer
     queryset = Order.objects.all()
