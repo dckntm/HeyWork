@@ -182,7 +182,7 @@ class FixOrderDetails(generics.RetrieveUpdateDestroyAPIView):
 @api_view(['GET'])
 def get_opened_customer_orders(request, pk):
     orders = Order.objects.filter(user_to_order__customer=pk, status=0)
-    serializer = ClosedOrderSerializer(orders, many=True)
+    serializer = OpenedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
 # Список всех возвращенных на дороботку заказчику заказов
