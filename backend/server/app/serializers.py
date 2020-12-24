@@ -76,7 +76,6 @@ class UserListSerializer(serializers.ModelSerializer):
 
 # region Order
 
-
 class UserOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
