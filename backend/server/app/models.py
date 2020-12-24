@@ -28,7 +28,8 @@ class Order(models.Model):
     STATUS = [
         (0,'opened'),
         (1,'returned'),
-        (2,'closed')
+        (2,'closed'),
+        (3,'expects')
     ]
     status = models.IntegerField(choices=STATUS,default=0)
     comment = models.TextField(null=True)
