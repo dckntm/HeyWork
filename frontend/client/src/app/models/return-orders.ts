@@ -1,4 +1,6 @@
 export class retunedOrder{
+    customer: number;
+    executor: number;
     id: number
     title: string;
     description: string;
