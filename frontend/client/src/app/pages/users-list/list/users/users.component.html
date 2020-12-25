@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 class="display-2">Найми лучшего программиста</h1>
+  <p class="mb-3">Найди хорошего программиста на HeyWork - Лучшем сервисе для поиска непостоянных работников</p>
+  <img src="https://s-trojmiasto.pl/zdj/c/n/9/2510/3000x0/2510244.jpg" class="img-fluid mb-3 " alt="Responsive image">
+  <select (change) = "filter()" [(ngModel)] = "chosenStack" name="select" id="" class="custom-select">
+    <option *ngFor = "let stack of stacks" [ngValue]="stack.id">{{stack.name}}</option>
+  </select> 
+  <ul class="list-group mt-3">
+    <li *ngFor = "let user of users" (click) = "navigateToUser(user.id)" routerLink = "/user/1" class="list-group-item">
+      <div class="row">
+        <div class="col-2">
+          <img [src]="'http://127.0.0.1:8005' + user.profile.avatar" alt="..." class="img-thumbnail border-0 rounded-circle">
+        </div>
+        <div class="col-5">
+          <div class="row">{{user.first_name}} {{user.last_name}}</div>
+          <div *ngIf = "user.profile.rating != 0" class="row">Качество работы {{user.profile.rating * 20}}%</div>
+          <div class="row">{{user.profile.description}} </div>
+          <p class="text-secondary mt-3"><span>&#8594;</span> Перейти к пользователю</p>
+        </div>
+        <div class="col7" *ngFor = "let tech of user.technology">
+          <div class="border p-2 mr-2">{{tech.name}}</div>
+        </div>
+      </div>
+      
+    </li>
+  </ul>
+  <button class="btn btn-primary mt-3 mb-3">Показать ещё</button>
+</div>
+
+

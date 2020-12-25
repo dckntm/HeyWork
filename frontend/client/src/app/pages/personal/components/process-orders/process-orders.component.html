@@ -1,0 +1,4 @@
+<p>Открытые для вас заказы</p>
+<ul *ngIf = "orders" class="list-group">
+    <li *ngFor = "let order of orders" class="list-group-item">{{order.title}}</li>   
+</ul>

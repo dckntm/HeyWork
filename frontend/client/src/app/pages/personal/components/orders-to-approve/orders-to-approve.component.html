@@ -1,0 +1,23 @@
+<p>Заказы для подтверждения</p>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor = "let order of orders; let i = index">{{order.title}} <button class="btn btn-lg btn-outline-primary" (click)="open(content); chooseOrder(i)">Открыть</button></li>
+</ul>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Закрытие заказа</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Название заказа: {{orders[orderToOpen].title}}</p>
+    <p>Описание заказа: {{orders[orderToOpen].description}}</p>
+    <p>Дедлайн заказа: {{orders[orderToOpen].deadline}}</p>
+    <p>Ревью заказа: {{orders[orderToOpen].review}}</p>
+    <ngb-rating [rate]="orders[orderToOpen].rating" [max] = '5'></ngb-rating>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); approveOrder()">Подтвердить</button>
+    <button type="button" class="btn btn-dark" (click)="modal.close('Save click'); sendToAdmin()">Отправить на рассмотрение</button>
+  </div>
+</ng-template>

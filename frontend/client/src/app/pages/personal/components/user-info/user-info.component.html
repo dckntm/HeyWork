@@ -1,0 +1,110 @@
+<!-- <div class="card" style="width: 18rem;"> -->
+<div *ngIf = "currUserData$ | async as user" class="card" style="width: 18rem;">
+    <div class="imgContainer ">
+      <label for="imageInput">
+          <img class="userImg w-100" [src]="user.profile.avatar"> 
+      </label>
+      <input *ngIf = "myPage" id = 'imageInput' #imageInput  type="file"
+              
+              (change)="processFile(imageInput)">
+    </div> 
+    <div class="card-body">
+      <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
+      <p class="card-text">{{user.profile.description}}</p>
+      <p class="card-text">{{user.profile.phone_number}}</p>
+      <p class="card-text">{{user.email}}</p>
+      <p class="card-text">{{user.profile.company}}</p>
+      <ng-template #changing let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Изменение данных</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup] = "changeForm">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Логин</label>
+              <input formControlName = "username" type="text" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Имя</label>
+                <input formControlName = "firstName" type="text" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Фамилия</label>
+                <input formControlName = "lastName" type="text" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Электронная почта</label>
+                <input formControlName = "email" type="email" class="form-control" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Телефонный номер</label>
+                <input formControlName = "mobile" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Компания</label>
+                <input formControlName = "company" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Краткая информация о пользователе</label>
+                <textarea formControlName = "shortInfo" type="text" class="form-control"></textarea>
+            </div>
+          </form>
+          <div class="form-group">
+            <label for="">Технологии, которыми вы владеете</label>
+            <br>
+            <p class="border pl-2" *ngFor = "let tech of user.technology">{{tech.name}}</p>
+            <select *ngFor = "let stak of chosenStacks; let i = index" name="select" [(ngModel)] = chosenStacks[i] class="custom-select w-25">
+                <option *ngFor = "let stack of stacks" [ngValue]="stack.id">{{stack.name}}</option>
+            </select>
+            <button (click) = "addStack()" class="btn btn-dark">Добавить </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="changeUserData(); modal.close('Save click')">Изменить</button>
+        </div>
+      </ng-template>
+      <button *ngIf = "myPage" type="submit" class="btn btn-primary" (click)="open(changing)">Изменить данные</button>
+    </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Создание заказа</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup] = "orderForm">
+        <div class="form-group">
+          <label for="dateOfBirth">Название заказа</label>
+          <div class="input-group">
+            <input formControlName = "title" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dateOfBirth">Описание заказа</label>
+          <div class="input-group">
+            <textarea formControlName = "description" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dateOfBirth">Дедлайн</label>
+          <div class="input-group">
+            <input formControlName = "deadline" id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" >
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); processOutOrder()">Создать</button>
+    </div>
+  </ng-template>
+
+  <button *ngIf = "!myPage" class="btn btn-lg btn-outline-primary" (click)="open(content)">Создать заказ</button>
+  <button *ngIf = "myPage" (click) = "logout()" class="btn btn-lg btn-outline-primary">Выйти</button>
+</div>
+
+  

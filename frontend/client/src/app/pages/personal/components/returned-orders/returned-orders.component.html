@@ -1,0 +1,27 @@
+<p>Возвращенные на рассмотрение</p>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor = "let order of orders; let i = index">{{order.title}} <button class="btn btn-lg btn-outline-primary" (click)="open(content); chooseOrder(i)">Открыть</button></li>
+</ul>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Закрытие заказа</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Название заказа: {{orders[orderToOpen].title}}</p>
+    <p>Описание заказа: {{orders[orderToOpen].description}}</p>
+    <p>Дедлайн заказа: {{orders[orderToOpen].deadline}}</p>
+    <p>Комментарий администратора: {{orders[orderToOpen].comment}}</p>
+    <div class="form-group">
+      <label for="">Новое ревью заказа</label>
+      <textarea class="form-control"></textarea>
+    </div>
+    <p>Новая оценка исполнителю</p>
+    <ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly" [max]="5"></ngb-rating>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-dark" (click)="modal.close('Save click'); onSubmit()">Отправить на рассмотрение</button>
+  </div>
+</ng-template>

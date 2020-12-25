@@ -1,0 +1,49 @@
+version: "3.2"
+   
+services:
+  db:
+    image: postgres
+    #restart: always
+
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres_test
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    
+  server:
+    #image: andys1mpson/heywork:backend
+    #restart: always
+
+    build: ./backend/
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+    volumes:
+      - './backend/server:/heywork/server/'
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - "2225:22"
+      - "8005:8000"
+
+  angular-service:
+    #image: andys1mpson/heywork:frontend
+    container_name: angularcontainer
+    build: ./frontend/
+    volumes:
+      - './frontend/client/src:/heywork/client/src' 
+    ports: 
+      - '4200:80'
+    depends_on: 
+      - server
+volumes:
+  postgres_data:
