@@ -1,4 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { retunedOrder } from 'src/app/models/return-orders';
+import { PersonalService } from '../../services/personal.service';
 
 @Component({
   selector: 'app-user-orders',
@@ -6,15 +10,17 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./user-orders.component.scss']
 })
 export class UserOrdersComponent implements OnInit {
-  
+  orders$: Observable<retunedOrder[]>;
+  currUserId: number;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private pageService: PersonalService, private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.currUserId = params['id']
+    });
   }
 
-  dosmth(){
-    console.log('im here')
+  ngOnInit(): void {
+    this.orders$ = this.pageService.loadInputOrders(this.currUserId);
   }
 
 }

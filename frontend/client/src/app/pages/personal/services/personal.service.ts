@@ -68,9 +68,14 @@ export class PersonalService {
     .get<Stack[]>("http://127.0.0.1:8005/stack", this.httpOptions)
   }
 
-  loadInputOrders(id: number): Observable<any>{
+  loadInputOrders(id: number): Observable<retunedOrder[]>{
     return this.http
-    .get<any>('http://127.0.0.1:8005/executorOrders/' + id, this.httpOptions)
+    .get<retunedOrder[]>('http://127.0.0.1:8005/executor/closed_orders/' + id, this.httpOptions)
+  }
+
+  loadOutputOrders(id: number): Observable<retunedOrder[]>{
+    return this.http
+    .get<retunedOrder[]>('http://127.0.0.1:8005/customer/closed_orders/' + id, this.httpOptions)
   }
 
   loadReturnOrders(id: number): Observable<any>{

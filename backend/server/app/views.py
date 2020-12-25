@@ -221,14 +221,14 @@ def get_customer_returned_orders(request, pk):
 # Список закрытых заказов для заказчика
 @api_view(['GET'])
 def get_closed_customer_orders(request, pk):
-    orders = Order.objects.filter(user_to_order__customer=pk, status=2)
+    orders = Order.objects.filter(customer=pk, status=2)
     serializer = ClosedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
 # Список выполненных исполнителем заказов
 @api_view(['GET'])
 def get_closed_executor_orders(request, pk):
-    orders = Order.objects.filter(user_to_order__executor=pk, status=2)
+    orders = Order.objects.filter(executor=pk, status=2)
     serializer = ClosedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 

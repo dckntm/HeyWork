@@ -1,5 +1,5 @@
 <p>Выполненные вами заказы</p>
-<ul class="list-group">
-    <li class="list-group-item">Cras justo odio</li>
+<ul *ngIf = "orders$ | async as orders" class="list-group">
+    <li *ngFor = "let order of orders" class="list-group-item">{{order.title}}</li>
     
 </ul>
