@@ -80,7 +80,7 @@ def get_users(request):
 
 @api_view(['GET'])
 def get_avatar(request, path_to_avatar):
-    with open('server/media/' + request.GET.get('path_to_avatar', 'default_avatar.jpg'), "rb") as image:
+    with open('server/media/' + request.GET.get('path_to_avatar'), "rb") as image:
         avatar = image.read()
         return HttpResponse(avatar,content_type="image/png")
 
@@ -254,7 +254,7 @@ def get_closed_executor_orders(request, pk):
 # Список открытых исполнителю заказов
 @api_view(['GET'])
 def get_opened_executor_orders(request, pk):
-    orders = Order.objects.filter(user_to_order__executorr=pk, status=0)
+    orders = Order.objects.filter(executor=pk, status=0)
     serializer = ClosedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 

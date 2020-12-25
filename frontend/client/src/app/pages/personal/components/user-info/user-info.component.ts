@@ -18,6 +18,7 @@ class ImageSnippet {
   styleUrls: ['./user-info.component.scss']
 })
 export class UserInfoComponent implements OnInit {
+  usrImg: any;
   myPage: boolean = false;
   selectedFile: ImageSnippet;
   currUserData$: Observable<User>;
@@ -47,7 +48,7 @@ export class UserInfoComponent implements OnInit {
         company: [this.userData.profile.company, Validators.required ],
         shortInfo: [this.userData.profile.description, Validators.required ],
       });
-      
+      this.usrImg = 
     })
     this.orderForm = this.formBuilder.group({
       title: [ "", Validators.required ],

@@ -128,4 +128,9 @@ export class PersonalService {
     return this.http
     .post('http://127.0.0.1:8005/avatar/save/' + userId, formData)
   }
+
+  loadProcessOrders(userId: number): Observable<retunedOrder[]>{
+    return this.http
+    .get<retunedOrder[]>('http://127.0.0.1:8005/executor/opened/' + userId, this.httpOptions)
+  }
 }
