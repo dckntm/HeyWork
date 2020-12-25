@@ -1,4 +1,4 @@
-<p>Открытые вам заказы</p>
+<p>Открытые вами заказы</p>
 <ul class="list-group">
   <li class="list-group-item" *ngFor = "let order of orders; let i = index">{{order.title}} <button class="btn btn-lg btn-outline-primary" (click)="open(content); chooseOrder(i)">Закрыть</button></li>
 </ul>

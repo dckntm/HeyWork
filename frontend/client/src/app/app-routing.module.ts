@@ -5,6 +5,7 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard'
 
 const routes: Routes = [
   {
@@ -30,7 +31,8 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminPageComponent
+    component: AdminPageComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

@@ -11,13 +11,8 @@ import { retunedOrder } from 'src/app/models/return-orders';
   providedIn: 'root'
 })
 export class PersonalService {
-  mainUserId: number;
 
-  constructor(private readonly http: HttpClient) {
-    let tokenInfo: any = jwt_decode(localStorage.getItem('currentUser'));
-    this.mainUserId = tokenInfo.user_id;
-    console.log(this.mainUserId);
-  }
+  constructor(private readonly http: HttpClient) {}
 
   httpOptions = {
     headers: new HttpHeaders({

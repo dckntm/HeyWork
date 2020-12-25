@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  incorrectForm: boolean = false;
   loginForm: FormGroup;
   stacks: Stack[]
   chosenStacks: number[] = [1]
@@ -28,7 +29,7 @@ export class RegisterComponent implements OnInit {
       firstName: [ "", Validators.required ],
       lastName: [ "", Validators.required ],
       email: ["", Validators.required ],
-      mobile: ["", Validators.required ],
+      mobile: ["", [Validators.required, Validators.pattern("^((\\+7-?)|0)?[0-9]{10}$")] ],
       company: ["", Validators.required ],
       shortInfo: ["", Validators.required ],
     });
@@ -47,7 +48,8 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(){
     if (this.loginForm.invalid){
-      console.log("form is incorrect")
+      console.log("form is incorrect");
+      this.incorrectForm = true;
       return;
     }
 
