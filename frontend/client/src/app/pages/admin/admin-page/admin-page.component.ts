@@ -67,8 +67,7 @@ export class AdminPageComponent implements OnInit {
   }
 
   chooseOrder(id: number){
-    this.chosenOrder = null;
-    this.orderToOpen = null;
+    console.log(id)
     this.chosenOrder = this.orders[id].id;
     this.orderToOpen = id;
     console.log(this.chosenOrder)
@@ -77,6 +76,14 @@ export class AdminPageComponent implements OnInit {
     this.orders[id].deadline = russianDate[2] + '.' + russianDate[1] + '.' + russianDate[0];
     dateTime = null;
     russianDate = null;
+  }
+
+  moveBack(){
+    this.pageService.sendBack(this.chosenOrder, this.comment);
+  }
+
+  closeOrder(){
+    this.pageService.closeOrder(this.chosenOrder);
   }
 
 
