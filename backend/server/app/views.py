@@ -108,12 +108,14 @@ class CreateOrder(generics.CreateAPIView):
     serializer_class = OpenedOrderSerializer
 
     def post(self, request):
-        order = Order.objects.create(title=request.data['title'],
+        customer = User.objects.get(id=request.data['customer'])
+        executor = User.objects.get(id=request.data['executor'])
+
+        order = Order.objects.create(customer=customer,
+                                     executor=executor,
+                                     title=request.data['title'],
                                      description=request.data['description'],
                                      deadline=request.data['deadline'])
-
-        user_order = User_to_Order.objects.create(customer_id=request.data['customer'],
-                                                  executor_id=request.data['executor'], order_id=order.id)
         return Response(status=status.HTTP_201_CREATED)
 
 # Закрытие заказчиком заказа

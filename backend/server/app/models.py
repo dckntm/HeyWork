@@ -17,7 +17,10 @@ class Profile(models.Model):
         return self.user.email
 
 class Order(models.Model):
-    user = models.ManyToManyField(User,through='User_to_Order',through_fields=('order_id','customer_id',))
+    #user = models.ManyToManyField(User,through='User_to_Order',through_fields=('order_id','customer_id',))
+    id = models.AutoField(primary_key=True)
+    customer = models.ForeignKey(User, on_delete = models.CASCADE, related_name='customer',default=1)
+    executor = models.ForeignKey(User, on_delete = models.CASCADE, related_name='executor',default=1)
     title = models.TextField()
     description = models.TextField(null=True)
     rating = models.FloatField(null=True)
@@ -32,10 +35,10 @@ class Order(models.Model):
     status = models.IntegerField(choices=STATUS,default=0)
     comment = models.TextField(null=True)
     
-class User_to_Order(models.Model):
-    customer = models.ForeignKey(User,on_delete = models.CASCADE, related_name='customer')
-    executor = models.ForeignKey(User,on_delete = models.CASCADE, related_name='executor')
-    order = models.ForeignKey(Order,on_delete = models.CASCADE)
+# class User_to_Order(models.Model):
+#     customer = models.ForeignKey(User,on_delete = models.CASCADE, related_name='customer')
+#     executor = models.ForeignKey(User,on_delete = models.CASCADE, related_name='executor')
+#     order = models.ForeignKey(Order,on_delete = models.CASCADE)
 
 class Technology(models.Model):
     user = models.ManyToManyField(User,related_name='technology')
