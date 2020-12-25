@@ -1,8 +1,4 @@
-<p>Открытые вами заказы</p>
-<ul class="list-group">
-    <li class="list-group-item">Cras justo odio<button type="button" class="btn btn-primary">Закрыть</button></li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Morbi leo risus</li>
-    <li class="list-group-item">Porta ac consectetur ac</li>
-    <li class="list-group-item">Vestibulum at eros</li>
+<p>Открытые для вас заказы</p>
+<ul *ngIf = "orders" class="list-group">
+    <li *ngFor = "let order of orders" class="list-group-item">{{order.title}}</li>   
 </ul>

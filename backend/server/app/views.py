@@ -84,6 +84,7 @@ def get_avatar(request, path_to_avatar):
     return HttpResponse(fs.open(path_to_avatar,mode='rb'),content_type="image/png")
 
 
+
 @api_view(['POST'])
 def save_avatar(request,pk):
     profile = Profile.objects.get(user=pk)
@@ -252,7 +253,7 @@ def get_closed_executor_orders(request, pk):
 # Список открытых исполнителю заказов
 @api_view(['GET'])
 def get_opened_executor_orders(request, pk):
-    orders = Order.objects.filter(user_to_order__executorr=pk, status=0)
+    orders = Order.objects.filter(executor=pk, status=0)
     serializer = ClosedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 

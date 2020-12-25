@@ -4,7 +4,7 @@
       <label for="imageInput">
           <img class="userImg w-100" [src]="user.profile.avatar"> 
       </label>
-      <input id = 'imageInput' #imageInput  type="file"
+      <input *ngIf = "myPage" id = 'imageInput' #imageInput  type="file"
               
               (change)="processFile(imageInput)">
     </div> 
@@ -66,7 +66,7 @@
           <button type="button" class="btn btn-outline-dark" (click)="changeUserData(); modal.close('Save click')">Изменить</button>
         </div>
       </ng-template>
-      <button type="submit" class="btn btn-primary" (click)="open(changing)">Изменить данные</button>
+      <button *ngIf = "myPage" type="submit" class="btn btn-primary" (click)="open(changing)">Изменить данные</button>
     </div>
 
   <ng-template #content let-modal>
@@ -103,7 +103,8 @@
     </div>
   </ng-template>
 
-  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Создать заказ</button>
+  <button *ngIf = "!myPage" class="btn btn-lg btn-outline-primary" (click)="open(content)">Создать заказ</button>
+  <button *ngIf = "myPage" (click) = "logout()" class="btn btn-lg btn-outline-primary">Выйти</button>
 </div>
 
   

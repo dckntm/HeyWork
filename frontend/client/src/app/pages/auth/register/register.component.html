@@ -41,5 +41,6 @@
         </select>
         <button (click) = "addStack()" class="btn btn-primary" (click) = "hui()">Добавить </button>
     </div>
+    <div *ngIf = "incorrectForm" class="border m-3 p-3 bg-danger text-white">Введены некоректные данные</div>
     <button type="submit" (click) = "onSubmit()" class="btn btn-primary">Submit</button>
 </div>

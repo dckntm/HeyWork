@@ -11,13 +11,8 @@ import { retunedOrder } from 'src/app/models/return-orders';
   providedIn: 'root'
 })
 export class PersonalService {
-  mainUserId: number;
 
-  constructor(private readonly http: HttpClient) {
-    let tokenInfo: any = jwt_decode(localStorage.getItem('currentUser'));
-    this.mainUserId = tokenInfo.user_id;
-    console.log(this.mainUserId);
-  }
+  constructor(private readonly http: HttpClient) {}
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -132,5 +127,10 @@ export class PersonalService {
 
     return this.http
     .post('http://127.0.0.1:8005/avatar/save/' + userId, formData)
+  }
+
+  loadProcessOrders(userId: number): Observable<retunedOrder[]>{
+    return this.http
+    .get<retunedOrder[]>('http://127.0.0.1:8005/executor/opened/' + userId, this.httpOptions)
   }
 }

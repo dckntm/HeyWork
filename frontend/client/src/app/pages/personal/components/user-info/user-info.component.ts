@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { Stack } from 'src/app/models/stack';
@@ -18,6 +18,8 @@ class ImageSnippet {
   styleUrls: ['./user-info.component.scss']
 })
 export class UserInfoComponent implements OnInit {
+  usrImg: any;
+  myPage: boolean = false;
   selectedFile: ImageSnippet;
   currUserData$: Observable<User>;
   userData: User;
@@ -29,7 +31,7 @@ export class UserInfoComponent implements OnInit {
   chosenStacks: number[] = [1];
   stacksForPost = [];
 
-  constructor(private modalService: NgbModal, private auth: AuthService, private formBuilder: FormBuilder, private pageService: PersonalService, private route: ActivatedRoute) {
+  constructor(private modalService: NgbModal, private auth: AuthService, private formBuilder: FormBuilder, private pageService: PersonalService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
       this.currUserId = params['id']
     });
@@ -42,11 +44,11 @@ export class UserInfoComponent implements OnInit {
         firstName: [ this.userData.first_name, Validators.required ],
         lastName: [ this.userData.last_name, Validators.required ],
         email: [this.userData.email, Validators.required ],
-        mobile: [this.userData.profile.phone_number, Validators.required ],
+        mobile: [this.userData.profile.phone_number, [Validators.required, Validators.pattern("^((\\+7-?)|0)?[0-9]{10}$")] ],
         company: [this.userData.profile.company, Validators.required ],
         shortInfo: [this.userData.profile.description, Validators.required ],
       });
-      
+      this.usrImg = 
     })
     this.orderForm = this.formBuilder.group({
       title: [ "", Validators.required ],
@@ -57,7 +59,11 @@ export class UserInfoComponent implements OnInit {
     .subscribe(x => {
       console.log(x)
       this.stacks = x;
-    })
+    });
+
+    if(this.currUserId == this.auth.userId){
+      this.myPage = true;
+    }
     
 
     
@@ -97,8 +103,8 @@ export class UserInfoComponent implements OnInit {
   }
 
   processOutOrder(){
-    console.log(this.pageService.mainUserId, this.currUserId, this.cForm.title.value, this.cForm.description.value, this.cForm.deadline.value)
-    this.pageService.postOpenOrder(this.pageService.mainUserId, this.currUserId, this.cForm.title.value, this.cForm.description.value, this.cForm.deadline.value)
+    console.log(this.auth.userId, this.currUserId, this.cForm.title.value, this.cForm.description.value, this.cForm.deadline.value)
+    this.pageService.postOpenOrder(this.auth.userId, this.currUserId, this.cForm.title.value, this.cForm.description.value, this.cForm.deadline.value)
   }
 
   changeUserData(){
@@ -138,6 +144,11 @@ export class UserInfoComponent implements OnInit {
     
 
     reader.readAsDataURL(file);
+  }
+
+  logout(){
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/'])
   }
 
 }
