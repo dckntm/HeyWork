@@ -88,18 +88,18 @@ from django.core.files.storage import FileSystemStorage
 
 @api_view(['POST'])
 def save_avatar(request,pk):
-    user = User.objects.get(id=pk)
+    profile = Profile.objects.get(user=pk)
     if 'avatar' in request.FILES:
         avatar = request.FILES['avatar']
     else:
         return Response(data={"error":"no avatar parameter or no file in request"}, status=status.HTTP_400_BAD_REQUEST)
     
     avatar_name = request.FILES['avatar'].name
-    
     fs = FileSystemStorage(location='server/media/')
     fs.save(avatar_name,avatar)
-    user.avatar = avatar_name
-    user.save()
+    
+    profile.avatar = avatar_name
+    profile.save()
     return HttpResponse(status=status.HTTP_200_OK)
 
 #endregion
