@@ -84,13 +84,16 @@ def get_avatar(request, path_to_avatar):
         return HttpResponse(avatar,content_type="image/png")
 
 @api_view(['POST'])
-def save_avatar(request):
+def save_avatar(request,pk):
+    user = User.objects.get(id=pk)
     if 'avatar' in request.FILES:
         avatar = request.FILES['avatar']
     else:
         return Response(data={"error":"no avatar parameter or no file in request"}, status=status.HTTP_400_BAD_REQUEST)
     
     default_storage.save(request.data['avatar'],avatar)
+    user.avatar = request.data['avatar']
+    user.save()
     return HttpResponse(status=status.HTTP_200_OK)
 
 #endregion

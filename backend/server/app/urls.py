@@ -31,5 +31,5 @@ urlpatterns = [
 
     path("search/", search),
     path("media/<str:path_to_avatar>", get_avatar),
-    path("avatar/save",save_avatar)
+    path("avatar/save/<int:pk>",save_avatar)
 ]
