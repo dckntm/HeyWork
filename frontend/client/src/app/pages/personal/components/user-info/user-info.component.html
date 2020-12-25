@@ -1,6 +1,13 @@
 <!-- <div class="card" style="width: 18rem;"> -->
 <div *ngIf = "currUserData$ | async as user" class="card" style="width: 18rem;">
-    <img [src]="user.profile.avatar" class="card-img-top" alt="...">
+    <div class="imgContainer ">
+      <label for="imageInput">
+          <img class="userImg w-100" [src]="user.profile.avatar"> 
+      </label>
+      <input id = 'imageInput' #imageInput  type="file"
+              
+              (change)="processFile(imageInput)">
+    </div> 
     <div class="card-body">
       <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
       <p class="card-text">{{user.profile.description}}</p>

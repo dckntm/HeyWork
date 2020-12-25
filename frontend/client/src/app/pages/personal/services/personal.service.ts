@@ -124,4 +124,13 @@ export class PersonalService {
     return this.http
     .get<retunedOrder[]>('http://127.0.0.1:8005/customer/returned_orders/' + userId, this.httpOptions)
   }
+
+  uploadImage(image: File){
+    const formData = new FormData();
+
+    formData.append('avatar', image, image.name);
+
+    return this.http
+    .post('/api/user/me/avatar', formData)
+  }
 }

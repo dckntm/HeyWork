@@ -6,7 +6,11 @@ import { Observable } from 'rxjs';
 import { Stack } from 'src/app/models/stack';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/pages/auth/services/auth.service';
-import { PersonalService } from '../../services/personal.service'
+import { PersonalService } from '../../services/personal.service';
+
+class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
 
 @Component({
   selector: 'app-user-info',
@@ -14,6 +18,7 @@ import { PersonalService } from '../../services/personal.service'
   styleUrls: ['./user-info.component.scss']
 })
 export class UserInfoComponent implements OnInit {
+  selectedFile: ImageSnippet;
   currUserData$: Observable<User>;
   userData: User;
   closeResult = '';
@@ -108,6 +113,31 @@ export class UserInfoComponent implements OnInit {
 
     console.log(this.userForm.username.value, this.userForm.firstName.value, this.userForm.lastName.value, this.userForm.email.value, this.userForm.mobile.value, this.userForm.company.value, this.userForm.shortInfo.value, this.chosenStacks)
     this.pageService.postUserData(this.currUserId, this.userForm.username.value, this.userForm.firstName.value, this.userForm.lastName.value, this.userForm.email.value, this.userForm.mobile.value, this.userForm.company.value, this.userForm.shortInfo.value, this.chosenStacks)
+  }
+
+  processFile(imageInput: any){
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+
+      this.pageService.uploadImage(this.selectedFile.file).subscribe(
+        (res) => {
+          console.log(res);
+          console.log("successfully upload");
+          this.userData.profile.avatar = this.selectedFile.src
+        },
+        (err) => {
+          console.log(err);
+          console.log("error")
+        })
+    });
+
+    
+
+    reader.readAsDataURL(file);
   }
 
 }
