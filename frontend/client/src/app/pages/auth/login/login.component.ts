@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  error: any
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
 
@@ -24,6 +25,8 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
+  
+
   onSubmit(){
     if (this.loginForm.invalid){
       console.log("form is incorrect")
@@ -32,6 +35,7 @@ export class LoginComponent implements OnInit {
     console.log(this.form.username.value, this.form.password.value)
     this.authService.login( this.form.username.value, this.form.password.value )
     this.router.navigate(['/'])
+    this.error = this.authService.err
   }
 
 }

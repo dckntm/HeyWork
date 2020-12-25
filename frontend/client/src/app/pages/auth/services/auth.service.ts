@@ -14,6 +14,7 @@ export class AuthService {
   res: JWt;
   userId: number;
   userIsAdmin: boolean;
+  err: boolean = false;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -21,7 +22,13 @@ export class AuthService {
     })
   };
 
-  constructor(private readonly http: HttpClient, private router: Router) { }
+  constructor(private readonly http: HttpClient, private router: Router) {
+    if(localStorage.getItem('currentUser') != null){
+      let tokenInfo = jwt_decode(localStorage.getItem('currentUser'));
+      this.userId = tokenInfo['user_id'];
+      this.userIsAdmin = tokenInfo['is_staff'];
+    }
+  }
 
   login(username: string, password: string){
     console.log("logging in");
@@ -45,7 +52,12 @@ export class AuthService {
         }
         localStorage.removeItem("currentUser")
         localStorage.setItem("currentUser", token.access);
+        this.err = false;
         // console.log(localStorage.getItem("currentUser"))
+      },
+      (err) => {
+        console.log(err);
+        this.err = true;
       })
   }
 

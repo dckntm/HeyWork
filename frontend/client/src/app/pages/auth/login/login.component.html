@@ -8,6 +8,7 @@
             <label for="exampleInputPassword1">Пароль</label>
             <input formControlName = "password" type="password" class="form-control" id="exampleInputPassword1">
         </div>
+        <div *ngIf = "error" class="border m-3 p-3 bg-danger text-white">Введены некоректные данные</div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

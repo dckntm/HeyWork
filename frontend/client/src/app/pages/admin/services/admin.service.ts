@@ -2,6 +2,7 @@ import { retunedOrder } from './../../../models/return-orders';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Stack } from 'src/app/models/stack';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,11 @@ export class AdminService {
     .subscribe(x => {
       console.log(x)
     })
+  }
+
+  getStacks(): Observable<Stack[]>{
+    return this.http
+    .get<Stack[]>("http://127.0.0.1:8005/stack", this.httpOptions)
   }
 
   getConflicts(): Observable<retunedOrder[]>{

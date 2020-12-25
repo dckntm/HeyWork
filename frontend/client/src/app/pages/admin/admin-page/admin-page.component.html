@@ -1,6 +1,10 @@
 <div class="container">
     <div class="formGroup">
-        <div class="input-group mb-3">
+        <label class="mt-3" for="">Созданные стеки</label>
+        <select name="select" class="custom-select w-25 mt-3">
+            <option *ngFor = "let stack of stacks" [ngValue]="stack.id">{{stack.name}}</option>
+        </select>
+        <div class="input-group mb-3 mt-3">
             <input [(ngModel)] = "newStackName" type="text" class="form-control" placeholder="Новый стек" aria-label="Recipient's username" aria-describedby="button-addon2">
             <button (click) = "onClick()" class="btn btn-outline-secondary ml-2" type="button" id="button-addon2">Добавить</button>
             <button class="btn btn-primary ml-2" (click) = "logout()">Выйти</button>

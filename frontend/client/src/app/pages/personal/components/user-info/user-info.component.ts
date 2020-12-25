@@ -48,7 +48,6 @@ export class UserInfoComponent implements OnInit {
         company: [this.userData.profile.company, Validators.required ],
         shortInfo: [this.userData.profile.description, Validators.required ],
       });
-      this.usrImg = 
     })
     this.orderForm = this.formBuilder.group({
       title: [ "", Validators.required ],

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { Stack } from 'src/app/models/stack';
 
 @Component({
   selector: 'app-admin-page',
@@ -22,10 +23,14 @@ export class AdminPageComponent implements OnInit {
   chosenOrder: number;
   orderToOpen: number;
   comment: string = '';
+  stacks: Stack[]
 
   constructor(private modalService: NgbModal, private pageService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
+    this.pageService.getStacks().subscribe(x => {
+      this.stacks = x;
+    })
     this.loadReturnedOrders()
     this.pageService.getConflicts().subscribe(x => {
       this.orders = x
