@@ -16,7 +16,7 @@
       <p class="card-text">{{user.profile.company}}</p>
       <ng-template #changing let-modal>
         <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Создание заказа</h4>
+          <h4 class="modal-title" id="modal-basic-title">Изменение данных</h4>
           <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -59,7 +59,7 @@
             <select *ngFor = "let stak of chosenStacks; let i = index" name="select" [(ngModel)] = chosenStacks[i] class="custom-select w-25">
                 <option *ngFor = "let stack of stacks" [ngValue]="stack.id">{{stack.name}}</option>
             </select>
-            <button (click) = "addStack()" class="btn btn-primary">Добавить </button>
+            <button (click) = "addStack()" class="btn btn-dark">Добавить </button>
           </div>
         </div>
         <div class="modal-footer">

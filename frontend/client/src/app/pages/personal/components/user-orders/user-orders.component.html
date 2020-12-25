@@ -1,5 +1,5 @@
 <p>Выполненные вами заказы</p>
-<ul *ngIf = "orders$ | async as orders" class="list-group">
-    <li *ngFor = "let order of orders" class="list-group-item">{{order.title}} <ngb-rating [rate]="order.rating" [max]="5"></ngb-rating></li>
+<ul *ngIf = "orders$ | async as orders" class="list-group w-100">
+    <li *ngFor = "let order of orders" class="list-group-item w-100">{{order.title}} <ngb-rating [rate]="order.rating" [max]="5"></ngb-rating></li>
     
 </ul>
