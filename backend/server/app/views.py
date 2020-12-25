@@ -6,7 +6,7 @@ from .serializers import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
-
+from django.core.files.storage import default_storage
 
 # изменение рейтинга
 def change_user_rating(user_pk):
@@ -72,16 +72,26 @@ class RetriewUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
 
 
 @api_view(['GET'])
+def get_users(request):
+    users = User.objects.filter(is_staff=False)
+    serializer = UserListSerializer(users, many=True)
+    return Response(data=serializer.data)
+
+@api_view(['GET'])
 def get_avatar(request, path_to_avatar):
     with open('server/media/' + request.GET.get('path_to_avatar', 'default_avatar.jpg'), "rb") as image:
         avatar = image.read()
         return HttpResponse(avatar,content_type="image/png")
 
-@api_view(['GET'])
-def get_users(request):
-    users = User.objects.filter(is_staff=False)
-    serializer = UserListSerializer(users, many=True)
-    return Response(data=serializer.data)
+@api_view(['POST'])
+def save_avatar(request):
+    if 'avatar' in request.FILES:
+        avatar = request.FILES['avatar']
+    else:
+        return Response(data={"error":"no avatar parameter or no file in request"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    default_storage.save(request.data['avatar'],avatar)
+    return HttpResponse(status=status.HTTP_200_OK)
 
 #endregion
 
