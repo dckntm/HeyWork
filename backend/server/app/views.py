@@ -6,8 +6,7 @@ from .serializers import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage
 
 # изменение рейтинга
 def change_user_rating(user_pk):
@@ -78,13 +77,12 @@ def get_users(request):
     serializer = UserListSerializer(users, many=True)
     return Response(data=serializer.data)
 
+from PIL import Image
 @api_view(['GET'])
 def get_avatar(request, path_to_avatar):
-    with open('server/media/' + request.GET.get('path_to_avatar', 'default_avatar.jpg'), "rb") as image:
-        avatar = image.read()
-        return HttpResponse(avatar,content_type="image/png")
+    fs = FileSystemStorage(location='server/media/')
+    return HttpResponse(fs.open(path_to_avatar,mode='rb'),content_type="image/png")
 
-from django.core.files.storage import FileSystemStorage
 
 @api_view(['POST'])
 def save_avatar(request,pk):
