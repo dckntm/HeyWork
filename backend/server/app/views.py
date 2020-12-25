@@ -10,11 +10,11 @@ from django.core.files.storage import FileSystemStorage
 
 # изменение рейтинга
 def change_user_rating(user_pk):
-    user = User.objects.get(id=user_pk)
+    profile = Profile.objects.get(user=user_pk)
     closed_user_orders = Order.objects.filter(executor=user_pk,status=2)
     rating = getattr(closed_user_orders,'rating')
-    user.rating = sum(rating)/len(rating)
-    user.save()
+    profile.rating = round(sum(rating)/len(rating))
+    profile.save()
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
