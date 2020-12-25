@@ -115,7 +115,7 @@ class ExpectsOrderSerializer(serializers.ModelSerializer):
 class ReturnedOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['title', 'description', 'deadline',
+        fields = ['id','title', 'description', 'deadline',
                   'review', 'rating', 'review', 'comment']
         extra_kwargs = {'title': {'read_only': True},
                         'description': {'read_only': True},

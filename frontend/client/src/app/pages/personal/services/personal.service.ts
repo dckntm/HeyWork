@@ -91,6 +91,9 @@ export class PersonalService {
   closeOrder(userId: number, orderId: number){
     return this.http
     .put('http://127.0.0.1:8005/order/close_by_executor/' + orderId + '/' + userId, this.httpOptions)
+    .subscribe(x => {
+      console.log(x)
+    })
   }
 
   sendToAdmin(orderId: number){
@@ -110,5 +113,10 @@ export class PersonalService {
     .subscribe(x => {
       console.log(x)
     })
+  }
+
+  getReturnedOrders(userId: number): Observable<retunedOrder[]>{
+    return this.http
+    .get<retunedOrder[]>('http://127.0.0.1:8005/customer/returned_orders/' + userId, this.httpOptions)
   }
 }

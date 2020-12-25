@@ -34,13 +34,19 @@ export class AdminService {
 
   sendBack(orderId: number, comment: string){
     return this.http
-    .post('http://127.0.0.1:8005/order/return/' + orderId, {
+    .put('http://127.0.0.1:8005/order/return/' + orderId, {
       comment: comment
+    })
+    .subscribe(x => {
+      console.log(x)
     })
   } 
 
   closeOrder(orderId: number){
     return this.http
-    .post('http://127.0.0.1:8005/order/cancel_refund/' + orderId, this.httpOptions)
+    .put('http://127.0.0.1:8005/order/cancel_refund/' + orderId, this.httpOptions)
+    .subscribe(x => {
+      console.log(x)
+    })
   }
 }

@@ -22,11 +22,11 @@ export class PersonalPageComponent implements OnInit {
     },
     {
       id: 3,
-      value: 'Возвращённые'
+      value: 'В проецссе'
     },
     {
       id: 4,
-      value: 'В проецссе',
+      value: 'Возвращённые',
     },
     {
       id: 5,

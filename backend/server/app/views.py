@@ -11,7 +11,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 # изменение рейтинга
 def change_user_rating(user_pk):
     user = User.objects.get(id=user_pk)
-    closed_user_orders = Order.objects.filter(user_to_order__executor=user_pk,status=2)
+    closed_user_orders = Order.objects.filter(executor=user_pk,status=2)
     rating = getattr(closed_user_orders,'rating')
     user.rating = sum(rating)/len(rating)
     user.save()
@@ -206,14 +206,14 @@ class FixOrderDetails(generics.RetrieveUpdateDestroyAPIView):
 # Список всех открытых заказчиком заказов
 @api_view(['GET'])
 def get_opened_customer_orders(request, pk):
-    orders = Order.objects.filter(user_to_order__customer=pk, status=0)
+    orders = Order.objects.filter(customer=pk, status=0)
     serializer = ListOpenedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
 # Список всех возвращенных на дороботку заказчику заказов
 @api_view(['GET'])
 def get_customer_returned_orders(request, pk):
-    returned_orders = Order.objects.filter(user_to_order__customer=pk, status=2)
+    returned_orders = Order.objects.filter(customer=pk, status=1)
     serializer = ReturnedOrderSerializer(returned_orders, many=True)
     return Response(data=serializer.data)
 
@@ -257,7 +257,7 @@ def get_returned_orders(request):
 
 @api_view(['GET'])
 def get_exects_orders(request,pk):
-    orders = Order.objects.filter(user_to_order__executor=pk, status=3)
+    orders = Order.objects.filter(executor=pk, status=3)
     serializer = ListClosedOrderSerializer(orders, many=True)
     return Response(data=serializer.data)
 
