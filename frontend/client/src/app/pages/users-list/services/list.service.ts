@@ -27,11 +27,6 @@ export class ListService {
     .get<User[]>('http://127.0.0.1:8005/users',this.httpOptions)
   }
 
-  getImg(imageUrl: string): Observable<Blob>{
-    return this.http
-    .get('http://127.0.0.1:8005' +imageUrl, {responseType: 'blob'})
-  }
-
   getUsersOptions(tec: number){
     let opt = {
       headers:{

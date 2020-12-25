@@ -123,7 +123,7 @@ export class UserInfoComponent implements OnInit {
 
       this.selectedFile = new ImageSnippet(event.target.result, file);
 
-      this.pageService.uploadImage(this.selectedFile.file).subscribe(
+      this.pageService.uploadImage(this.selectedFile.file, this.currUserId).subscribe(
         (res) => {
           console.log(res);
           console.log("successfully upload");
