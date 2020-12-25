@@ -84,6 +84,8 @@ def get_avatar(request, path_to_avatar):
         avatar = image.read()
         return HttpResponse(avatar,content_type="image/png")
 
+from django.core.files.storage import FileSystemStorage
+
 @api_view(['POST'])
 def save_avatar(request,pk):
     user = User.objects.get(id=pk)
@@ -92,9 +94,11 @@ def save_avatar(request,pk):
     else:
         return Response(data={"error":"no avatar parameter or no file in request"}, status=status.HTTP_400_BAD_REQUEST)
     
-
-    path = default_storage.save(request.data['avatar'],ContentFile(avatar.read()))
-    user.avatar = path
+    avatar_name = request.FILES['avatar'].name
+    
+    fs = FileSystemStorage(location='server/media/')
+    fs.save(avatar_name,avatar)
+    user.avatar = avatar_name
     user.save()
     return HttpResponse(status=status.HTTP_200_OK)
 
