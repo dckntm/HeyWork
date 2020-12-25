@@ -39,7 +39,7 @@ class ListTechnologySerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['description', 'avatar', 'company', 'phone_number']
+        fields = ['description', 'avatar', 'company', 'phone_number', 'rating']
 
 
 class UserSerializer(serializers.ModelSerializer):
