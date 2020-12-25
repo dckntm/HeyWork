@@ -11,9 +11,12 @@ from django.core.files.storage import FileSystemStorage
 # изменение рейтинга
 def change_user_rating(user_pk):
     profile = Profile.objects.get(user=user_pk)
-    closed_user_orders = Order.objects.filter(executor=user_pk,status=2)
-    rating = getattr(closed_user_orders,'rating')
-    profile.rating = round(sum(rating)/len(rating))
+
+    rating = list(Order.objects.filter(executor=user_pk,status=2).values_list('rating'))
+    rating = [i[0] for i in rating]
+    if len(rating) != 0:  
+        profile.rating = round(sum(rating)/len(rating))
+        
     profile.save()
 
 class MyTokenObtainPairView(TokenObtainPairView):
