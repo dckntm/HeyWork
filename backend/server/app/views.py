@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 # изменение рейтинга
 def change_user_rating(user_pk):
@@ -91,8 +92,9 @@ def save_avatar(request,pk):
     else:
         return Response(data={"error":"no avatar parameter or no file in request"}, status=status.HTTP_400_BAD_REQUEST)
     
-    default_storage.save(request.data['avatar'],avatar)
-    user.avatar = request.data['avatar']
+
+    path = default_storage.save(request.data['avatar'],ContentFile(avatar.read()))
+    user.avatar = path
     user.save()
     return HttpResponse(status=status.HTTP_200_OK)
 
