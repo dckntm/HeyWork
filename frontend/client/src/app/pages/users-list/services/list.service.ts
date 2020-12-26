@@ -19,12 +19,12 @@ export class ListService {
 
   getStacks(): Observable<Stack[]>{
     return this.http
-    .get<Stack[]>("http://127.0.0.1:8005/stack", this.httpOptions)
+    .get<Stack[]>("/api/stack", this.httpOptions)
   }
 
   getUsers(): Observable<User[]>{
     return this.http
-    .get<User[]>('http://127.0.0.1:8005/users',this.httpOptions)
+    .get<User[]>('/api/users',this.httpOptions)
   }
 
   getUsersOptions(tec: number){
@@ -37,6 +37,6 @@ export class ListService {
       }
     }
     return this.http
-    .get<User[]>('http://127.0.0.1:8005/search', opt)
+    .get<User[]>('/api/search', opt)
   }
 }

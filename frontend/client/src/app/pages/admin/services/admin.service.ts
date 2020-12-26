@@ -20,7 +20,7 @@ export class AdminService {
   addStack(stackName: string){
     console.log(stackName)
     return this.http
-    .post("http://127.0.0.1:8005/stack/create",{
+    .post("/api/stack/create",{
       name: stackName
     })
     .subscribe(x => {
@@ -30,17 +30,17 @@ export class AdminService {
 
   getStacks(): Observable<Stack[]>{
     return this.http
-    .get<Stack[]>("http://127.0.0.1:8005/stack", this.httpOptions)
+    .get<Stack[]>("/api/stack", this.httpOptions)
   }
 
   getConflicts(): Observable<retunedOrder[]>{
     return this.http
-    .get<retunedOrder[]>("http://127.0.0.1:8005/returned_orders", this.httpOptions)
+    .get<retunedOrder[]>("/api/returned_orders", this.httpOptions)
   }
 
   sendBack(orderId: number, comment: string){
     return this.http
-    .put('http://127.0.0.1:8005/order/return/' + orderId, {
+    .put('/api/order/return/' + orderId, {
       comment: comment
     })
     .subscribe(x => {
@@ -50,7 +50,7 @@ export class AdminService {
 
   closeOrder(orderId: number){
     return this.http
-    .put('http://127.0.0.1:8005/order/cancel_refund/' + orderId, this.httpOptions)
+    .put('/api/order/cancel_refund/' + orderId, this.httpOptions)
     .subscribe(x => {
       console.log(x)
     })

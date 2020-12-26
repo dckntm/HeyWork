@@ -22,7 +22,7 @@ export class PersonalService {
 
   postOpenOrder(customer: number, executor: number, title: string, description: string, deadline: string){
     return this.http
-    .post('http://127.0.0.1:8005/order/create', {
+    .post('/order/create', {
       customer: customer,
       executor: executor,
       title: title,
@@ -36,13 +36,13 @@ export class PersonalService {
 
   getUserData(userId: number): Observable<User>{
     return this.http
-    .get<User>('http://127.0.0.1:8005/user/' + userId, this.httpOptions)
+    .get<User>('/api/user/' + userId, this.httpOptions)
   }
 
   postUserData(id: number, username: string, firstName: string, lastName: string, email: string, mobile: string, company: string, shortDescription: string, stack: any){
     console.log('try to send')
     return this.http
-    .put('http://127.0.0.1:8005/user/' + id, {
+    .put('/api/user/' + id, {
       username: username,
       email: email,
       first_name: firstName,
@@ -60,17 +60,17 @@ export class PersonalService {
 
   getStacks(): Observable<Stack[]>{
     return this.http
-    .get<Stack[]>("http://127.0.0.1:8005/stack", this.httpOptions)
+    .get<Stack[]>("/api/stack", this.httpOptions)
   }
 
   loadInputOrders(id: number): Observable<retunedOrder[]>{
     return this.http
-    .get<retunedOrder[]>('http://127.0.0.1:8005/executor/closed_orders/' + id, this.httpOptions)
+    .get<retunedOrder[]>('/api/executor/closed_orders/' + id, this.httpOptions)
   }
 
   loadOutputOrders(id: number): Observable<retunedOrder[]>{
     return this.http
-    .get<retunedOrder[]>('http://127.0.0.1:8005/customer/closed_orders/' + id, this.httpOptions)
+    .get<retunedOrder[]>('/api/customer/closed_orders/' + id, this.httpOptions)
   }
 
   loadReturnOrders(id: number): Observable<any>{
@@ -80,17 +80,17 @@ export class PersonalService {
 
   getOpenCustomer(id: number): Observable<OpenedOrder[]>{
     return this.http
-    .get<OpenedOrder[]>('http://127.0.0.1:8005/customer_orders/' + id, this.httpOptions)
+    .get<OpenedOrder[]>('/api/customer_orders/' + id, this.httpOptions)
   }
 
   getOrdersToApprove(id: number): Observable<retunedOrder[]>{
     return this.http
-    .get<retunedOrder[]>('http://127.0.0.1:8005/exected_order/' + id, this.httpOptions)
+    .get<retunedOrder[]>('/api/exected_order/' + id, this.httpOptions)
   }
 
   closeOrder(userId: number, orderId: number){
     return this.http
-    .put('http://127.0.0.1:8005/order/close_by_executor/' + orderId + '/' + userId, this.httpOptions)
+    .put('/api/order/close_by_executor/' + orderId + '/' + userId, this.httpOptions)
     .subscribe(x => {
       console.log(x)
     })
@@ -98,7 +98,7 @@ export class PersonalService {
 
   sendToAdmin(orderId: number){
     return this.http
-    .put('http://127.0.0.1:8005/order/to_admin_review/' + orderId, this.httpOptions)
+    .put('/api/order/to_admin_review/' + orderId, this.httpOptions)
     .subscribe(x => {
       console.log(x)
     })
@@ -106,7 +106,7 @@ export class PersonalService {
 
   postCloseOrder(id: number, revue: string, rating: number){
     return this.http
-    .put('http://127.0.0.1:8005/order/close_by_customer/' + id, {
+    .put('/api/order/close_by_customer/' + id, {
       review: revue,
       rating: rating,
     })
@@ -117,7 +117,7 @@ export class PersonalService {
 
   getReturnedOrders(userId: number): Observable<retunedOrder[]>{
     return this.http
-    .get<retunedOrder[]>('http://127.0.0.1:8005/customer/returned_orders/' + userId, this.httpOptions)
+    .get<retunedOrder[]>('/api/customer/returned_orders/' + userId, this.httpOptions)
   }
 
   uploadImage(image: File, userId: number){
@@ -126,11 +126,11 @@ export class PersonalService {
     formData.append('avatar', image, image.name);
 
     return this.http
-    .post('http://127.0.0.1:8005/avatar/save/' + userId, formData)
+    .post('/api/avatar/save/' + userId, formData)
   }
 
   loadProcessOrders(userId: number): Observable<retunedOrder[]>{
     return this.http
-    .get<retunedOrder[]>('http://127.0.0.1:8005/executor/opened/' + userId, this.httpOptions)
+    .get<retunedOrder[]>('/api/executor/opened/' + userId, this.httpOptions)
   }
 }

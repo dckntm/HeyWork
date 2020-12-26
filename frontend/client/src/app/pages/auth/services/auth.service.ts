@@ -35,7 +35,7 @@ export class AuthService {
     
 
     return this.http
-      .post("http://127.0.0.1:8005/auth/jwt/create", {
+      .post("/api/auth/jwt/create", {
         username: username,
         password: password
       })
@@ -65,7 +65,7 @@ export class AuthService {
     console.log("signing up")
 
     return this.http
-    .post("http://127.0.0.1:8005/user/create",{
+    .post("/api/user/create",{
       username: username,
       email: email,
       first_name: firstName,
@@ -80,13 +80,13 @@ export class AuthService {
     }, {responseType: 'text'})
     .subscribe(x => {
       console.log(x)
-      this.router.navigate(["/login"])
+      this.router.navigate(["/api/login"])
     })
   }
 
   getStacks(): Observable<Stack[]>{
     return this.http
-    .get<Stack[]>("http://127.0.0.1:8005/stack", this.httpOptions)
+    .get<Stack[]>("/api/stack", this.httpOptions)
   }
 
   logout(){
