@@ -297,6 +297,3 @@ def search(request):
         users = User.objects.filter(first_name=first_name, last_name=last_name)
         serializer = UserListSerializer(users, many=True)
         return Response(data=serializer.data)
-
-
-

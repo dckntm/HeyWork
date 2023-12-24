@@ -1,16 +1,25 @@
 {
-    "python.pythonPath": "C:\\Users\\whale\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "name": "postgres",
-            "database": "postgres",
-            "username": "postgres",
-            "password": "postgres"
-        }
-    ],
-
+  "python.pythonPath": "C:\\Users\\whale\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "postgres",
+      "database": "postgres",
+      "username": "postgres",
+      "password": "postgres"
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "test",
+      "database": "postgres",
+      "username": "postgres",
+      "password": "postgres"
+    }
+  ]
 }
